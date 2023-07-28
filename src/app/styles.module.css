@@ -1,0 +1,25 @@
+.mainButtons {
+  height: 90px;
+  width: 322px;
+  background-color: #cccccc;
+  border-radius: 10px;
+  margin: 0.75rem 0;
+}
+
+.innerButton {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 100%;
+}
+
+.icons {
+  height: 53px;
+  width: 53px;
+}
+
+.innterButtonText {
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: black;
+}

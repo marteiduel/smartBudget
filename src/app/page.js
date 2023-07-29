@@ -4,42 +4,80 @@ import styles from "./styles.module.css";
 
 export default function Home() {
   return (
-    // min-h-screen
     <main className="flex flex-col items-center justify-between">
-      <Link className={styles.mainButtons} href="/budget">
+      <header className="flex justify-center items-center text-4xl m-8">
+        <h1 className="font-medium">Smart Budget</h1>
+      </header>
+      <Link className={styles.mainButtons} href="/add-expense">
         <div className={styles.innerButton}>
           <p className={styles.innterButtonText}>Add Expense</p>
-          <Image className={styles.icons} alt="Add Expense" />
+          <Image
+            src="/assets/icons/add-expense.png"
+            className={styles.icons}
+            width={50}
+            height={50}
+            alt="Add Expense"
+          />
         </div>
       </Link>
-      <Link className={styles.mainButtons} href="/budget">
+      <Link className={styles.mainButtons} href="/add-income">
         <div className={styles.innerButton}>
           <p className={styles.innterButtonText}>Add Income</p>
-          <Image className={styles.icons} alt="Add Expense" />
+          <Image
+            src="/assets/icons/add-income.png"
+            className={styles.icons}
+            alt="Add Expense"
+            width={50}
+            height={50}
+          />
         </div>
       </Link>
-      <Link className={styles.mainButtons} href="/budget">
+      <Link className={styles.mainButtons} href="/review-budget">
         <div className={styles.innerButton}>
           <p className={styles.innterButtonText}>Review Budget</p>
-          <Image className={styles.icons} alt="Add Expense" />
+          <Image
+            src="/assets/icons/review-budget.png"
+            className={styles.icons}
+            alt="Add Expense"
+            width={50}
+            height={50}
+          />
         </div>
       </Link>
-      <Link className={styles.mainButtons} href="/budget">
+      <Link className={styles.mainButtons} href="/categories">
         <div className={styles.innerButton}>
           <p className={styles.innterButtonText}>Categories</p>
-          <Image className={styles.icons} alt="Add Expense" />
+          <Image
+            src="/assets/icons/categories.png"
+            className={styles.icons}
+            alt="Add Expense"
+            width={50}
+            height={50}
+          />
         </div>
       </Link>
-      <Link className={styles.mainButtons} href="/budget">
+      <Link className={styles.mainButtons} href="/set-budget">
         <div className={styles.innerButton}>
           <p className={styles.innterButtonText}>Set Budget</p>
-          <Image className={styles.icons} alt="Add Expense" />
+          <Image
+            src="/assets/icons/set-budget.png"
+            className={styles.icons}
+            alt="Add Expense"
+            width={50}
+            height={50}
+          />
         </div>
       </Link>
-      <Link className={styles.mainButtons} href="/budget">
+      <Link className={styles.mainButtons} href="/history-log">
         <div className={styles.innerButton}>
           <p className={styles.innterButtonText}>Log</p>
-          <Image className={styles.icons} alt="Add Expense" />
+          <Image
+            src="/assets/icons/history-log.png"
+            className={styles.icons}
+            alt="Add Expense"
+            width={50}
+            height={50}
+          />
         </div>
       </Link>
     </main>

@@ -1,0 +1,21 @@
+.header {
+  display: flex;
+}
+
+.back {
+  /* background-color: #f5f5f5; */
+  align-self: flex-start;
+  padding: 5px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  border: 1px solid #e3e3e3;
+  /* box-shadow: 0 0 5px #e3e3e3; */
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  top: 0%;
+  left: 0%;
+}
+
+.pageTitle {
+  justify-content: center;
+}

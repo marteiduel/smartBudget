@@ -20,7 +20,7 @@ export default function Home() {
           />
         </div>
       </Link>
-      <Link className={styles.mainButtons} href="/add-income">
+      {/* <Link className={styles.mainButtons} href="/add-income">
         <div className={styles.innerButton}>
           <p className={styles.innterButtonText}>Add Income</p>
           <Image
@@ -31,7 +31,7 @@ export default function Home() {
             height={50}
           />
         </div>
-      </Link>
+      </Link> */}
       <Link className={styles.mainButtons} href="/review-budget">
         <div className={styles.innerButton}>
           <p className={styles.innterButtonText}>Review Budget</p>

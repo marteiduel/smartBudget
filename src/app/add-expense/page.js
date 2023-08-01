@@ -100,7 +100,7 @@ export default function HistoryLog() {
             "Loading..."
           )}
 
-          <div className={styles.labels}>Select Sub-Category</div>
+          <div className={styles.labels}>Amount</div>
           <input
             className={styles.addCategory}
             type="float"

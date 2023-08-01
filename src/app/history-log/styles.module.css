@@ -33,6 +33,8 @@
   padding: 1rem;
   border-radius: 10px;
   height: 80vh;
+  max-width: 100% !important;
+  overflow-x: hidden !important;
 }
 
 .categoryName {

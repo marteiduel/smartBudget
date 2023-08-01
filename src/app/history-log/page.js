@@ -1,10 +1,11 @@
 import Link from "next/link";
 import styles from "./styles.module.css";
 import Image from "next/image";
-// import NextTopLoader from "nextjs-toploader";
+
 async function getHistoryLog() {
   const res = await fetch(
-    "https://marteiduel.com/smartbudget/get_history_log.php"
+    "https://marteiduel.com/smartbudget/get_history_log.php",
+    { cache: "no-cache" }
   );
 
   return res.json();

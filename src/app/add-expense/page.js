@@ -15,29 +15,37 @@ export default function HistoryLog() {
     fetch("https://marteiduel.com/smartbudget/get_categories.php")
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         setCategories(data);
       })
       .catch((error) => console.error("Error fetching categories:", error));
   }, []);
 
-  function addExpense(e) {
+  async function addExpense(e) {
     e.preventDefault();
-    fetch("https://marteiduel.com/smartbudget/add_expense.php", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        categoryId: selectedCategory,
-        amount: amount,
-        date: today,
-        description: description,
-        userId: 1,
-      }),
-    });
-    setAmount("");
-    setDescription("");
+    try {
+      fetch("https://marteiduel.com/smartbudget/add_expense.php", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          categoryId: selectedCategory,
+          amount: amount,
+          date: today,
+          description: description,
+          userId: 1,
+        }),
+      });
+      const data = await response.json();
+
+      if (data.sucess) {
+        setAmount("");
+        setDescription("");
+        setSelectedCategory("");
+      }
+    } catch (error) {
+      console.error("Error adding expense:", error);
+    }
   }
 
   function todaysDate() {
@@ -52,6 +60,13 @@ export default function HistoryLog() {
     const formattedDate = `${year}-${month}-${day}`;
     setToday(formattedDate);
   }
+
+  const handleAmountInput = (e) => {
+    const value = e.target.value;
+    if (/^[0-9]*\.?[0-9]*$/.test(value)) {
+      setAmount(value);
+    }
+  };
 
   return (
     <>
@@ -74,14 +89,12 @@ export default function HistoryLog() {
               className={styles.addCategory}
               onChange={(e) => setSelectedCategory(e.target.value)}
             >
-              <option value="">Select a value</option>
+              <option>Select a value</option>
               {categories.map((category) => {
                 return (
                   <option
                     key={category.categoryId}
                     value={category.categoryId}
-                    name="category"
-                    id="category"
                     required
                   >
                     {category.category_name}
@@ -96,10 +109,12 @@ export default function HistoryLog() {
           <div className={styles.labels}>Amount</div>
           <input
             className={styles.addCategory}
-            type="float"
+            type="text"
             placeholder="Enter Amount"
             required
-            onChange={(e) => setAmount(e.target.value)}
+            pattern="[0-9]*\.?[0-9]+"
+            onInput={(e) => handleAmountInput(e)}
+            value={amount}
             id="amount"
           />
 

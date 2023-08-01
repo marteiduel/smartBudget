@@ -30,18 +30,7 @@ export default async function Categories() {
               <div className={styles.categoryAndIcons}>
                 <div>{category.category_name}</div>
                 <div className={styles.icons}>
-                  <Image
-                    alt="Delete"
-                    src="/assets/icons/delete-red.png"
-                    width={22}
-                    height={22}
-                  ></Image>
-                  <Image
-                    alt="Edit"
-                    src="/assets/icons/edit.png"
-                    width={26}
-                    height={22}
-                  ></Image>
+                  <p>${category.category_budget}</p>
                 </div>
               </div>
             </div>

@@ -56,7 +56,7 @@ export default function Home() {
           />
         </div>
       </Link>
-      <Link className={styles.mainButtons} href="/set-budget">
+      {/* <Link className={styles.mainButtons} href="/set-budget">
         <div className={styles.innerButton}>
           <p className={styles.innterButtonText}>Set Budget</p>
           <Image
@@ -67,7 +67,7 @@ export default function Home() {
             height={50}
           />
         </div>
-      </Link>
+      </Link> */}
       <Link className={styles.mainButtons} href="/history-log">
         <div className={styles.innerButton}>
           <p className={styles.innterButtonText}>Log</p>

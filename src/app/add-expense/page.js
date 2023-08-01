@@ -5,10 +5,11 @@ import { useState, useEffect } from "react";
 
 export default function HistoryLog() {
   const [categories, setCategories] = useState([]);
-  const [subcategories, setSubCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
-  const [selectedSubCategory, setSelectedSubCategory] = useState("");
   const [today, setToday] = useState("");
+  // const [subcategories, setSubCategories] = useState([]);
+  // const [selectedSubCategory, setSelectedSubCategory] = useState("");
+
   useEffect(() => {
     todaysDate();
     fetch("https://marteiduel.com/smartbudget/get_categories.php")
@@ -22,16 +23,16 @@ export default function HistoryLog() {
 
   function selectCategory(categoryId) {
     setSelectedCategory(categoryId);
-    fetch(
-      "https://marteiduel.com/smartbudget/get_subcategories.php?categoryId=" +
-        categoryId
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        setSubCategories(data);
-      })
-      .catch((error) => console.error("Error fetching subcategories:", error));
+    // fetch(
+    //   "https://marteiduel.com/smartbudget/get_subcategories.php?categoryId=" +
+    //     categoryId
+    // )
+    //   .then((res) => res.json())
+    //   .then((data) => {
+    //     console.log(data);
+    //     setSubCategories(data);
+    //   })
+    //   .catch((error) => console.error("Error fetching subcategories:", error));
   }
 
   function todaysDate() {
@@ -80,7 +81,7 @@ export default function HistoryLog() {
           ) : (
             "Loading..."
           )}
-
+          {/* 
           <div className={styles.labels}>Select Sub-Category</div>
           {subcategories ? (
             <select
@@ -98,7 +99,7 @@ export default function HistoryLog() {
             </select>
           ) : (
             "Loading..."
-          )}
+          )} */}
 
           <div className={styles.labels}>Amount</div>
           <input

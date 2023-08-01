@@ -9,8 +9,6 @@ export default function HistoryLog() {
   const [today, setToday] = useState("");
   const [amount, setAmount] = useState("");
   const [description, setDescription] = useState("");
-  // const [subcategories, setSubCategories] = useState([]);
-  // const [selectedSubCategory, setSelectedSubCategory] = useState("");
 
   useEffect(() => {
     todaysDate();
@@ -22,20 +20,6 @@ export default function HistoryLog() {
       })
       .catch((error) => console.error("Error fetching categories:", error));
   }, []);
-
-  function selectCategory(categoryId) {
-    setSelectedCategory(categoryId);
-    // fetch(
-    //   "https://marteiduel.com/smartbudget/get_subcategories.php?categoryId=" +
-    //     categoryId
-    // )
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //     console.log(data);
-    //     setSubCategories(data);
-    //   })
-    //   .catch((error) => console.error("Error fetching subcategories:", error));
-  }
 
   function addExpense(e) {
     e.preventDefault();
@@ -88,7 +72,7 @@ export default function HistoryLog() {
           {categories ? (
             <select
               className={styles.addCategory}
-              onChange={(e) => selectCategory(e.target.value)}
+              onChange={(e) => setSelectedCategory(e.target.value)}
             >
               <option value="">Select a value</option>
               {categories.map((category) => {

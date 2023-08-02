@@ -25,7 +25,7 @@
 
 .categoriesList {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   justify-content: flex-start;
   flex-direction: column;
   background-color: #cccccc;
@@ -73,5 +73,5 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 4rem;
+  width: rem;
 }

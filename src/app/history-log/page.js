@@ -29,13 +29,20 @@ export default async function HistoryLog() {
           return (
             <div key={transaction.id} className={styles.categoryName}>
               <div className={styles.categoryAndIcons}>
-                <div>{transaction.description}</div>
+                <div className="flex">
+                  <p className="w-4/5">{transaction.description}</p>
+                  <p className="text-xs self-end w-14">
+                    {transaction.transaction_date.slice(5, 10)}
+                  </p>
+                </div>
                 <div className={styles.icons}>${transaction.amount}</div>
               </div>
             </div>
           );
         })}
       </div>
+
+      <div className={styles.addCategory}>Load More</div>
     </div>
   );
 }

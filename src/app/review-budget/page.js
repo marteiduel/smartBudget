@@ -10,7 +10,7 @@ async function getData() {
 
 export default async function ReviewBudget() {
   const data = await getData();
-  console.log(data);
+  console.log(typeof data[0].remaining_budget);
 
   return (
     <div>

@@ -12,7 +12,6 @@ async function getData() {
 
 export default async function SetBudget() {
   const data = await getData();
-  console.log(data);
 
   return (
     <div>

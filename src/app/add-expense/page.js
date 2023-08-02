@@ -59,7 +59,6 @@ export default function HistoryLog() {
 
     const formattedDate = `${year}-${month}-${day}`;
     setToday(formattedDate);
-    console.log(formattedDate);
   }
 
   const handleAmountInput = (e) => {

@@ -1,6 +1,5 @@
 import Link from "next/link";
 import styles from "./styles.module.css";
-import Image from "next/image";
 
 async function getHistoryLog() {
   const res = await fetch(
@@ -13,7 +12,6 @@ async function getHistoryLog() {
 
 export default async function HistoryLog() {
   const data = await getHistoryLog();
-  console.log(data);
 
   return (
     <div>

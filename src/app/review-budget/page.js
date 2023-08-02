@@ -10,7 +10,6 @@ async function getData() {
 
 export default async function ReviewBudget() {
   const data = await getData();
-  console.log(typeof data[0].remaining_budget);
 
   return (
     <div>
@@ -33,7 +32,13 @@ export default async function ReviewBudget() {
             <div key={category.categoryId} className={styles.categoryName}>
               <div className={styles.categoryAndIcons}>
                 <div>{category.category_name}</div>
-                <div className={styles.icons}>
+                <div
+                  className={
+                    category.remaining_budget.includes("-")
+                      ? styles.negativeBalance
+                      : styles.positiveBalance
+                  }
+                >
                   <p>${category.remaining_budget}</p>
                 </div>
               </div>

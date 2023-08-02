@@ -69,7 +69,20 @@
   align-items: center;
 }
 
-.icons {
+.positiveBalance {
+  color: green;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 4rem;
+}
+
+.negativeBalance {
+  color: red;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
   display: flex;
   justify-content: space-between;
   align-items: center;

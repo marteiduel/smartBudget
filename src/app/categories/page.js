@@ -13,31 +13,31 @@ export default async function Categories() {
   const data = await getData();
 
   return (
-    <Popout />
+    // <Popout />
 
-    // <div>
-    //   <header className={styles.header}>
-    //     <Link className={styles.back} href="/">
-    //       Back
-    //     </Link>
-    //     <h1 className={styles.pageTitle}>Categories</h1>
-    //   </header>
+    <div>
+      <header className="header">
+        <Link className="back" href="/">
+          Back
+        </Link>
+        <h1 className="pageTitle">Categories</h1>
+      </header>
 
-    //   <div className={styles.categoriesList}>
-    //     {data.map((category) => {
-    //       return (
-    //         <div key={category.categoryId} className={styles.categoryName}>
-    //           <div className={styles.categoryAndIcons}>
-    //             <div>{category.category_name}</div>
-    //             <div className={styles.icons}>
-    //               <p>${category.category_budget}</p>
-    //             </div>
-    //           </div>
-    //         </div>
-    //       );
-    //     })}
-    //   </div>
-    //   <div className={styles.addCategory}>Add Category</div>
-    // </div>
+      <div className="backBox">
+        {data.map((category) => {
+          return (
+            <div key={category.categoryId} className="categoryItem">
+              <div className={styles.categoryAndIcons}>
+                <div>{category.category_name}</div>
+                <div className={styles.icons}>
+                  <p>${category.category_budget}</p>
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+      <div className="whiteBackgroundSquare">Add Category</div>
+    </div>
   );
 }

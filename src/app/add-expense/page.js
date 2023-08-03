@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import styles from "./styles.module.css";
-import { useState, useEffect } from "react";
+import { useState, useEffect, startTransition } from "react";
 
 export default function HistoryLog() {
   const [categories, setCategories] = useState([]);
@@ -70,13 +70,13 @@ export default function HistoryLog() {
 
   return (
     <>
-      <header className={styles.header}>
-        <Link className={styles.back} href="/">
+      <header className="header">
+        <Link className="back" href="/">
           Back
         </Link>
-        <h1 className={styles.pageTitle}>Add Expense</h1>
+        <h1 className="pageTitle">Add Expense</h1>
       </header>
-      <div className={styles.categoriesList}>
+      <div className="backBox">
         <form
           className={styles.form}
           onSubmit={(e) => {
@@ -86,7 +86,7 @@ export default function HistoryLog() {
           <div className={styles.labels}>Select Category</div>
           {categories ? (
             <select
-              className={styles.addCategory}
+              className="whiteBackgroundSquare"
               onChange={(e) => setSelectedCategory(e.target.value)}
             >
               <option>Select a value</option>
@@ -108,7 +108,7 @@ export default function HistoryLog() {
 
           <div className={styles.labels}>Amount</div>
           <input
-            className={styles.addCategory}
+            className="whiteBackgroundSquare"
             type="text"
             placeholder="Enter Amount"
             required
@@ -120,7 +120,7 @@ export default function HistoryLog() {
 
           <div className={styles.labels}>Expense Date</div>
           <input
-            className={styles.addCategory}
+            className="whiteBackgroundSquare"
             type="date"
             onChange={(e) => setToday(e.target.value)}
             value={today}
@@ -134,7 +134,11 @@ export default function HistoryLog() {
             onChange={(e) => setDescription(e.target.value)}
           />
 
-          <input className={styles.addCategory} type="submit" value="Submit" />
+          <input
+            className={` ${styles.graybackground} whiteBackgroundSquare`}
+            type="submit"
+            value="Submit"
+          />
         </form>
       </div>
     </>

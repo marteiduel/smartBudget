@@ -37,17 +37,6 @@
   overflow-x: hidden !important;
 }
 
-.categoryName {
-  font-size: 1.2rem;
-  font-weight: 600;
-  margin-bottom: 15px;
-  background-color: #e3e3e3;
-  padding: 0.7rem;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: all 0.3s ease-in-out;
-}
-
 .addCategory {
   display: flex;
   justify-content: center;
@@ -121,4 +110,8 @@
   color: white;
   border-radius: 10px;
   background-color: #767676;
+}
+
+.graybackground {
+  background-color: #cccccc;
 }

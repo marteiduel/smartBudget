@@ -15,17 +15,17 @@ export default async function HistoryLog() {
 
   return (
     <div>
-      <header className={styles.header}>
-        <Link className={styles.back} href="/">
+      <header className="header">
+        <Link className="back" href="/">
           Back
         </Link>
-        <h1 className={styles.pageTitle}>History Log</h1>
+        <h1 className="pageTitle">History Log</h1>
       </header>
 
-      <div className={styles.categoriesList}>
+      <div className={styles.backBox}>
         {data.map((transaction) => {
           return (
-            <div key={transaction.id} className={styles.categoryName}>
+            <div key={transaction.id} className="categoryItem">
               <div className={styles.categoryAndIcons}>
                 <div className="flex">
                   <p className="w-4/5">{transaction.description}</p>
@@ -40,7 +40,7 @@ export default async function HistoryLog() {
         })}
       </div>
 
-      <div className={styles.addCategory}>Load More</div>
+      <div className="whiteBackgroundSquare">Load More</div>
     </div>
   );
 }

@@ -1,7 +1,6 @@
 import Link from "next/link";
 import styles from "./styles.module.css";
-import Image from "next/image";
-// import NextTopLoader from "nextjs-toploader";
+
 async function getData() {
   const res = await fetch(
     "https://marteiduel.com/smartbudget/get_categories.php"
@@ -15,17 +14,17 @@ export default async function SetBudget() {
 
   return (
     <div>
-      <header className={styles.header}>
-        <Link className={styles.back} href="/">
+      <header className="header">
+        <Link className="back" href="/">
           Back
         </Link>
-        <h1 className={styles.pageTitle}>Set Budget</h1>
+        <h1 className="pageTitle">Set Budget</h1>
       </header>
 
       <div className={styles.categoriesList}>
         {data.map((category) => {
           return (
-            <div key={category.categoryId} className={styles.categoryName}>
+            <div key={category.categoryId} className="categoryItem">
               {category.category_name}
             </div>
           );

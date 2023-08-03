@@ -23,7 +23,7 @@
   margin: 1rem;
 }
 
-.categoriesList {
+.backBox {
   display: flex;
   flex-wrap: nowrap;
   justify-content: flex-start;
@@ -35,17 +35,6 @@
   height: 80vh;
   max-width: 100% !important;
   overflow-x: hidden !important;
-}
-
-.categoryName {
-  font-size: 1.2rem;
-  font-weight: 600;
-  margin-bottom: 15px;
-  background-color: #e3e3e3;
-  padding: 0.7rem;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: all 0.3s ease-in-out;
 }
 
 .addCategory {

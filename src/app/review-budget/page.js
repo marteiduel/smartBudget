@@ -13,15 +13,15 @@ export default async function ReviewBudget() {
 
   return (
     <div>
-      <header className={styles.header}>
-        <Link className={styles.back} href="/">
+      <header className="header">
+        <Link className="back" href="/">
           Back
         </Link>
-        <h1 className={styles.pageTitle}>Review Budget</h1>
+        <h1 className="pageTitle">Review Budget</h1>
       </header>
 
-      <div className={styles.categoriesList}>
-        <div className={styles.categoryName}>
+      <div className={`${styles.backBox} backBox`}>
+        <div className="categoryItem">
           <div className={styles.categoryAndIcons}>
             <p>Category</p>
             <p className="pr-4">Left</p>
@@ -29,7 +29,7 @@ export default async function ReviewBudget() {
         </div>
         {data.map((category) => {
           return (
-            <div key={category.categoryId} className={styles.categoryName}>
+            <div key={category.categoryId} className="categoryItem">
               <div className={styles.categoryAndIcons}>
                 <div>{category.category_name}</div>
                 <div

@@ -22,7 +22,7 @@ export default async function ReviewBudget() {
 
       <div className={`${styles.backBox} backBox`}>
         <div className="categoryItem">
-          <div className={styles.categoryAndIcons}>
+          <div className="spaceBetween">
             <p>Category</p>
             <p className="pr-4">Left</p>
           </div>
@@ -30,7 +30,7 @@ export default async function ReviewBudget() {
         {data.map((category) => {
           return (
             <div key={category.categoryId} className="categoryItem">
-              <div className={styles.categoryAndIcons}>
+              <div className="spaceBetween">
                 <div>{category.category_name}</div>
                 <div
                   className={

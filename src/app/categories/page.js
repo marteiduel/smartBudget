@@ -1,5 +1,5 @@
 import Link from "next/link";
-import styles from "./styles.module.css";
+
 import Popout from "./Popout";
 async function getData() {
   const res = await fetch(
@@ -27,9 +27,9 @@ export default async function Categories() {
         {data.map((category) => {
           return (
             <div key={category.categoryId} className="categoryItem">
-              <div className={styles.categoryAndIcons}>
-                <div>{category.category_name}</div>
-                <div className={styles.icons}>
+              <div className="spaceBetween">
+                <p>{category.category_name}</p>
+                <div>
                   <p>${category.category_budget}</p>
                 </div>
               </div>
@@ -37,7 +37,9 @@ export default async function Categories() {
           );
         })}
       </div>
-      <div className="whiteBackgroundSquare">Add Category</div>
+      <div className="justifyCenter">
+        <p className="lowerButtons">Add Category</p>
+      </div>
     </div>
   );
 }

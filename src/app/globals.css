@@ -74,3 +74,28 @@ html {
   cursor: pointer;
   transition: all 0.3s ease-in-out;
 }
+
+.lowerButtons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  background-color: #cccccc;
+  height: 3rem;
+  border-radius: 10px;
+  font-size: 1.2rem;
+  font-weight: 500;
+  width: 90%;
+}
+
+.justifyCenter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.spaceBetween {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

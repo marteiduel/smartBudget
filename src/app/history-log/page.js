@@ -14,7 +14,7 @@ export default async function HistoryLog() {
   const data = await getHistoryLog();
 
   return (
-    <div>
+    <div className="colCenter">
       <header className="header">
         <Link className="back" href="/">
           Back
@@ -40,7 +40,9 @@ export default async function HistoryLog() {
         })}
       </div>
 
-      <div className="whiteBackgroundSquare">Load More</div>
+      <div className="flex justify-center">
+        <div className={`lowerButtons`}>Load More</div>
+      </div>
     </div>
   );
 }

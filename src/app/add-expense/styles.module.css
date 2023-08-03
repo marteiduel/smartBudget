@@ -1,27 +1,6 @@
-.header {
-  display: flex;
-  justify-content: center;
-}
-
 .form {
   display: flex;
   flex-direction: column;
-}
-
-.addCategory {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 20px;
-  cursor: pointer;
-  transition: all 0.3s ease-in-out;
-  background-color: #ebebeb;
-  margin: 1rem 0.2rem;
-  height: 3rem;
-  border-radius: 10px;
-  font-size: 1.2rem;
-  font-weight: 500;
-  padding: 7px;
 }
 
 .labels {

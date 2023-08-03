@@ -135,7 +135,7 @@ export default function HistoryLog() {
           />
 
           <input
-            className={` ${styles.graybackground} whiteBackgroundSquare`}
+            className=" whiteBackgroundSquare"
             type="submit"
             value="Submit"
           />

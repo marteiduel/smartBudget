@@ -1,13 +1,5 @@
 import Link from "next/link";
-
-async function getHistoryLog() {
-  const res = await fetch(
-    "https://marteiduel.com/smartbudget/get_history_log.php",
-    { cache: "no-cache" }
-  );
-
-  return res.json();
-}
+import getHistoryLog from "../lib/getHistoryLog";
 
 export default async function HistoryLog() {
   const data = await getHistoryLog();
@@ -24,9 +16,13 @@ export default async function HistoryLog() {
       <div className="backBox">
         {data.map((transaction) => {
           return (
-            <div key={transaction.id} className="categoryItem">
+            <Link
+              href={`/history-log/${transaction.id}`}
+              key={transaction.id}
+              className="categoryItem"
+            >
               <div className="spaceBetween">
-                {/* Next Lines Tailwind */}
+                {/* Next Lines 3 Tailwind */}
                 <div className="flex">
                   <p className="w-4/5">{transaction.description}</p>
                   <p className="text-xs self-end w-14">
@@ -35,7 +31,7 @@ export default async function HistoryLog() {
                 </div>
                 <div className="spaceBetween">${transaction.amount}</div>
               </div>
-            </div>
+            </Link>
           );
         })}
       </div>

@@ -1,16 +1,14 @@
 import Link from "next/link";
-
+import getCategories from "../lib/getCategories";
 import Popout from "./Popout";
-async function getData() {
-  const res = await fetch(
-    "https://marteiduel.com/smartbudget/get_categories.php"
-  );
 
-  return res.json();
+function openPopUp() {
+  "use client";
 }
 
 export default async function Categories() {
-  const data = await getData();
+  const usersData = getCategories();
+  const data = await usersData;
 
   return (
     // <Popout />
@@ -38,7 +36,9 @@ export default async function Categories() {
         })}
       </div>
       <div className="justifyCenter">
-        <p className="lowerButtons">Add Category</p>
+        <p className="lowerButtons" onClick={openPopUp()}>
+          Add Category
+        </p>
       </div>
     </div>
   );

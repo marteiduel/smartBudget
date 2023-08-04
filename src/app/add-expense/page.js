@@ -1,9 +1,10 @@
 "use client";
 import Link from "next/link";
 import styles from "./styles.module.css";
-import { useState, useEffect, startTransition } from "react";
+import { useState, useEffect } from "react";
+import getCategories from "../lib/getCategories";
 
-export default function HistoryLog() {
+export default function AddExpense() {
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [today, setToday] = useState("");
@@ -12,8 +13,8 @@ export default function HistoryLog() {
 
   useEffect(() => {
     todaysDate();
-    fetch("https://marteiduel.com/smartbudget/get_categories.php")
-      .then((res) => res.json())
+    const data = getCategories();
+    data
       .then((data) => {
         setCategories(data);
       })

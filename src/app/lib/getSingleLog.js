@@ -1,6 +1,6 @@
-async function getSingleLog() {
+async function getSingleLog(id) {
   const res = await fetch(
-    `https://marteiduel.com/smartbudget/get_single_log.php&id=${id}`
+    `https://marteiduel.com/smartbudget/get_single_log.php?id=${id}`
   );
 
   if (!res.ok) throw new Error("Error fetching Log");

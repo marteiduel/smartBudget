@@ -2,10 +2,12 @@
 import Image from "next/image";
 import styles from "./styles.module.css";
 import { useState, useEffect } from "react";
-import getSingleLog from "@/app/lib/getSingleLog";
+import { getSingleLog, deleteLog } from "@/app/lib/singleLog";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 function Popout(transaction) {
+  const router = useRouter();
   const [category, setCategory] = useState("");
   const [date, setDate] = useState("");
   const [amount, setAmount] = useState("");
@@ -23,6 +25,12 @@ function Popout(transaction) {
     });
   });
 
+  const logDelete = async (e, id) => {
+    e.preventDefault();
+    deleteLog(id);
+    router.push("/history-log");
+  };
+
   if (loading) return <div>Loading...</div>;
 
   return (
@@ -31,6 +39,7 @@ function Popout(transaction) {
         <Link className="back" href="/history-log">
           Back
         </Link>
+        <h1 className="pageTitle">History Log</h1>
       </header>
       <div className={styles.popUp}>
         <div className="text-3xl">{category ? category : "No category "}</div>
@@ -44,7 +53,12 @@ function Popout(transaction) {
         <div className="text-2xl">${amount ? amount : "No amount"}</div>
 
         <div className={styles.deleteEdit}>
-          <div className={styles.deleteIcon}>
+          <div
+            onClick={(e) => {
+              logDelete(e, transaction.params.log);
+            }}
+            className={styles.deleteIcon}
+          >
             Delete
             <Image
               alt="edit"

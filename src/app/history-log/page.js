@@ -1,11 +1,32 @@
+"use client";
 import Link from "next/link";
 import getHistoryLog from "../lib/getHistoryLog";
+import { useState, useEffect } from "react";
+import Popout from "./components/singleLog";
 
-export default async function HistoryLog() {
-  const data = await getHistoryLog();
+export default function HistoryLog() {
+  const [loading, isLoading] = useState(true);
+  const [data, setData] = useState([]);
+  const [log, setLog] = useState([]);
+
+  useEffect(() => {
+    getHistoryLog().then((data) => {
+      setData(data);
+      isLoading(false);
+    });
+  }, []);
+
+  const openPopout = (e, id) => {
+    e.preventDefault();
+    console.log(id, "open pop");
+    setLog(id);
+  };
+
+  if (loading) return <div>Loading...</div>;
 
   return (
     <>
+      <Popout id={log} />
       <header className="header">
         <Link className="back" href="/">
           Back
@@ -16,8 +37,10 @@ export default async function HistoryLog() {
       <div className="backBox">
         {data.map((transaction) => {
           return (
-            <Link
-              href={`/history-log/${transaction.id}`}
+            <div
+              onClick={(e) => {
+                openPopout(e, transaction.id);
+              }}
               key={transaction.id}
               className="categoryItem"
             >
@@ -31,7 +54,7 @@ export default async function HistoryLog() {
                 </div>
                 <div className="spaceBetween">${transaction.amount}</div>
               </div>
-            </Link>
+            </div>
           );
         })}
       </div>

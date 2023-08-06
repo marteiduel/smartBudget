@@ -6,8 +6,9 @@
   margin: 1rem;
   padding: 1rem;
   border-radius: 10px;
-  height: 40vh;
+  height: 50vh;
   max-width: 100% !important;
+  width: 100%;
   overflow-x: hidden !important;
 }
 
@@ -42,4 +43,21 @@
   color: white;
   border-radius: 10px;
   background-color: #767676;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.popUp {
+  background: white;
 }

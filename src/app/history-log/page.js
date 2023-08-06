@@ -8,6 +8,7 @@ export default function HistoryLog() {
   const [loading, isLoading] = useState(true);
   const [data, setData] = useState([]);
   const [log, setLog] = useState([]);
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     getHistoryLog().then((data) => {
@@ -18,15 +19,21 @@ export default function HistoryLog() {
 
   const openPopout = (e, id) => {
     e.preventDefault();
-    console.log(id, "open pop");
     setLog(id);
+    setShowModal(true);
+  };
+
+  const closePopout = (e) => {
+    if (e.target.id !== "popout") {
+      setShowModal(false);
+    }
   };
 
   if (loading) return <div>Loading...</div>;
 
   return (
     <>
-      <Popout id={log} />
+      {showModal && <Popout id={log} onClose={closePopout} />}
       <header className="header">
         <Link className="back" href="/">
           Back

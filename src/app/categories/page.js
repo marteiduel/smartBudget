@@ -1,10 +1,6 @@
 import Link from "next/link";
-import getCategories from "../lib/getCategories";
+import { getCategories } from "../lib/categories";
 import Popout from "./Popout";
-
-function openPopUp() {
-  "use client";
-}
 
 export default async function Categories() {
   const usersData = getCategories();

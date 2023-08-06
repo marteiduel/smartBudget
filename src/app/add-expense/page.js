@@ -2,7 +2,7 @@
 import Link from "next/link";
 import styles from "./styles.module.css";
 import { useState, useEffect } from "react";
-import getCategories from "../lib/getCategories";
+import { getCategories } from "../lib/categories";
 
 export default function AddExpense() {
   const [categories, setCategories] = useState([]);

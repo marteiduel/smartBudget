@@ -2,39 +2,60 @@
 import styles from "./styles.module.css";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
+import { addCategory } from "../../lib/categories";
 
-function Popout({ id, onClose }) {
+function Popout({ onClose }) {
   const router = useRouter();
-  const [transaction] = useState({ id: id });
-  const [category, setCategory] = useState("");
-  const [date, setDate] = useState("");
-  const [amount, setAmount] = useState("");
-  const [description, setDescription] = useState("");
-  const [loading, isLoading] = useState(true);
-
-  const logDelete = async (e, id) => {
-    e.preventDefault();
-    deleteLog(id);
-    router.push("/categories");
-  };
+  const [categoryName, setCategoryName] = useState("");
+  const [categoryBudget, setCategoryBudget] = useState("");
 
   const handleInsideClick = (e) => {
     e.stopPropagation();
   };
 
-  if (loading) return <div>Loading...</div>;
+  async function addExpense(e) {
+    e.preventDefault();
+    await addCategory(categoryName, categoryBudget, 1);
+    setCategoryBudget("");
+    setCategoryName("");
+    router.reload();
+  }
 
   return (
     <div className={styles.overlay} onClick={onClose}>
       <div className={styles.popUp} onClick={handleInsideClick}>
-        <header className="header">
-          <Link className="back" href="/categories">
-            Back
-          </Link>
-        </header>
-        <form>
-          <h1>HI</h1>
+        <form
+          className={styles.form}
+          onSubmit={(e) => {
+            addExpense(e);
+          }}
+        >
+          <h1 className={styles.addCategoryTextTitle}>Add Category</h1>
+
+          <div className={styles.itemsCenter}>
+            <label>Category Name</label>
+            <input
+              onChange={(e) => setCategoryName(e.target.value)}
+              type="text"
+              placeholder="Ex. Groceries"
+              value={categoryName}
+              required
+            />
+          </div>
+          <div className={styles.itemsCenter}>
+            <label>Category Budget</label>
+            <input
+              onChange={(e) => setCategoryBudget(e.target.value)}
+              type="number"
+              placeholder="Ex. 100"
+              value={categoryBudget}
+              required
+            />
+          </div>
+
+          <button className={styles.button} type="submit">
+            Add Category
+          </button>
         </form>
       </div>
     </div>

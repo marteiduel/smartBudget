@@ -7,26 +7,23 @@ import { useState, useEffect } from "react";
 export default function Categories() {
   const [loading, isLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
-
   const [data, setData] = useState([]);
 
   useEffect(() => {
     getCategories().then((data) => {
       setData(data);
-      console.log(data);
       isLoading(false);
     });
   }, []);
 
-  const openPopout = (e) => {
+  function openPopout(e) {
     e.preventDefault();
     setShowModal(true);
-  };
+  }
 
   const closePopout = (e) => {
-    if (e.target.id !== "popout") {
-      setShowModal(false);
-    }
+    e.preventDefault();
+    setShowModal(false);
   };
 
   if (loading) return <div>Loading...</div>;
@@ -44,13 +41,7 @@ export default function Categories() {
       <div className="backBox">
         {data.map((category) => {
           return (
-            <div
-              key={category.categoryId}
-              className="categoryItem"
-              onClick={(e) => {
-                openPopout(e, transaction.id);
-              }}
-            >
+            <div key={category.categoryId} className="categoryItem">
               <div className="spaceBetween">
                 <p>{category.category_name}</p>
                 <div>

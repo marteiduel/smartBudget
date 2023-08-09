@@ -13,6 +13,7 @@ export default function Categories() {
   useEffect(() => {
     getCategories().then((data) => {
       setData(data);
+      console.log(data);
       isLoading(false);
     });
   }, []);

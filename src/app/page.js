@@ -56,18 +56,7 @@ export default function Home() {
           />
         </div>
       </Link>
-      {/* <Link className={styles.mainButtons} href="/set-budget">
-        <div className={styles.innerButton}>
-          <p className={styles.innterButtonText}>Set Budget</p>
-          <Image
-            src="/assets/icons/set-budget.png"
-            className={styles.icons}
-            alt="Add Expense"
-            width={50}
-            height={50}
-          />
-        </div>
-      </Link> */}
+
       <Link className={styles.mainButtons} href="/history-log">
         <div className={styles.innerButton}>
           <p className={styles.innterButtonText}>Log</p>

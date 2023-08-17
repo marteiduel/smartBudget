@@ -2,9 +2,9 @@ import Link from "next/link";
 import styles from "./styles.module.css";
 
 async function getData() {
-  const res = await fetch(
-    "https://marteiduel.com/smartbudget/get_categories.php"
-  );
+  const res = await fetch("https://marteiduel.com/smartbudget/categories.php", {
+    method: "GET",
+  });
 
   return res.json();
 }

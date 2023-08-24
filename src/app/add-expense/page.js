@@ -10,6 +10,7 @@ export default function AddExpense() {
   const [today, setToday] = useState("");
   const [amount, setAmount] = useState("");
   const [description, setDescription] = useState("");
+  const [selectKey, setSelectKey] = useState(0);
 
   useEffect(() => {
     todaysDate();
@@ -24,25 +25,31 @@ export default function AddExpense() {
   async function addExpense(e) {
     e.preventDefault();
     try {
-      fetch("https://marteiduel.com/smartbudget/add_expense.php", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          categoryId: selectedCategory,
-          amount: amount,
-          date: today,
-          description: description,
-          userId: 1,
-        }),
-      });
+      const response = await fetch(
+        "https://marteiduel.com/smartbudget/add_expense.php",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            categoryId: selectedCategory,
+            amount: amount,
+            date: today,
+            description: description,
+            userId: 1,
+          }),
+        }
+      );
+      console.log("response");
       const data = await response.json();
-
-      if (data.sucess) {
+      console.log(data, "response1");
+      if (data.success) {
+        console.log(data.success);
         setAmount("");
         setDescription("");
         setSelectedCategory("");
+        setSelectKey((prevKey) => prevKey + 1);
       }
     } catch (error) {
       console.error("Error adding expense:", error);
@@ -87,10 +94,11 @@ export default function AddExpense() {
           <div className={styles.labels}>Select Category</div>
           {categories ? (
             <select
+              key={selectKey}
               className="whiteBackgroundSquare"
               onChange={(e) => setSelectedCategory(e.target.value)}
             >
-              <option>Select a value</option>
+              <option>Select a Category</option>
               {categories.map((category) => {
                 return (
                   <option
@@ -133,6 +141,7 @@ export default function AddExpense() {
             type="textarea"
             placeholder="Enter Description"
             onChange={(e) => setDescription(e.target.value)}
+            value={description}
           />
 
           <input

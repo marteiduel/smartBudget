@@ -1,15 +1,29 @@
+"use client";
 import Link from "next/link";
 import styles from "./styles.module.css";
-async function getData() {
-  const res = await fetch(
-    "https://marteiduel.com/smartbudget/categories_money_left.php"
-  );
+import {useState, useEffect} from "react";
 
-  return res.json();
-}
+// async function getData() {
+//   const res = await fetch(
+//     "https://marteiduel.com/smartbudget/categories_money_left.php"
+//   );
+//   return res.json();
+// }
 
-export default async function ReviewBudget() {
-  const data = await getData();
+export default function ReviewBudget() {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    async function getData() {
+      const res = await fetch(
+        "https://marteiduel.com/smartbudget/categories_money_left.php"
+      );
+      const data = await res.json();
+      setData(data);
+    }
+    getData();
+  }, []);
+  
 
   return (
     <div>

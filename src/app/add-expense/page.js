@@ -41,11 +41,8 @@ export default function AddExpense() {
           }),
         }
       );
-      console.log("response");
       const data = await response.json();
-      console.log(data, "response1");
       if (data.success) {
-        console.log(data.success);
         setAmount("");
         setDescription("");
         setSelectedCategory("");

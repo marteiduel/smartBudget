@@ -1,16 +1,11 @@
 "use client";
 import Link from "next/link";
-import styles from "./styles.module.css";
 import {useState, useEffect} from "react";
-
-// async function getData() {
-//   const res = await fetch(
-//     "https://marteiduel.com/smartbudget/categories_money_left.php"
-//   );
-//   return res.json();
-// }
+import { useRouter } from "next/navigation";
+import styles from "./styles.module.css";
 
 export default function ReviewBudget() {
+  const router = useRouter();
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -20,10 +15,10 @@ export default function ReviewBudget() {
       );
       const data = await res.json();
       setData(data);
+      console.log(data);
     }
     getData();
   }, []);
-  
 
   return (
     <div>
@@ -43,7 +38,11 @@ export default function ReviewBudget() {
         </div>
         {data.map((category) => {
           return (
-            <div key={category.categoryId} className="categoryItem">
+            <Link
+              href={`review-budget/${category.category_id}`}
+              key={category.category_id}
+              className="categoryItem"
+            >
               <div className="spaceBetween">
                 <div>{category.category_name}</div>
                 <div
@@ -56,7 +55,7 @@ export default function ReviewBudget() {
                   <p>${category.remaining_budget}</p>
                 </div>
               </div>
-            </div>
+            </Link>
           );
         })}
       </div>

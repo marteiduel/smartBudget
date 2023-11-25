@@ -13,12 +13,11 @@ function Popout({ onClose }) {
     e.stopPropagation();
   };
 
-  async function addExpense(e) {
-    e.preventDefault();
+  async function addCategory(e) {
     await addCategory(categoryName, categoryBudget, 1);
     setCategoryBudget("");
     setCategoryName("");
-    router.reload();
+    onClose();
   }
 
   return (
@@ -27,7 +26,7 @@ function Popout({ onClose }) {
         <form
           className={styles.form}
           onSubmit={(e) => {
-            addExpense(e);
+            addCategory(e);
           }}
         >
           <h1 className={styles.addCategoryTextTitle}>Add Category</h1>

@@ -85,7 +85,7 @@ function EditTransaction({ onClose, transaction }) {
           <button className={styles.button} type="submit">
             Save Changes
           </button>
-          <button>Delete</button>
+          <button className={styles.deleteButton}>Delete</button>
         </form>
       </div>
     </div>

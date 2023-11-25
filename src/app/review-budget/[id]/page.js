@@ -1,18 +1,20 @@
 "use client"
-import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import styles from "../styles.module.css";
+import EditTransaction from "./Components/EditTransaction";
 
 function SingleCategoryTransactions(urlId) {
     const id = urlId.params.id
     const [data, setData] = useState([]);
+    const [showModal, setShowModal] = useState(false);
+    const [selectedTransaction, setSelectedTransaction] = useState(null);
 
     useEffect(() => {
       fetch(
         `https://marteiduel.com/smartbudget/transactions_by_category.php?category_id=${id}`
       )
-        .then((res) => {
+.then((res) => {
           if (!res.ok) {
             throw new Error("Network response was not ok");
           }
@@ -22,7 +24,7 @@ function SingleCategoryTransactions(urlId) {
           console.log(data)
           setData(data);
         })
-        .catch((error) => {
+      .catch((error) => {
           console.error(
             "There has been a problem with your fetch operation:",
             error
@@ -30,12 +32,20 @@ function SingleCategoryTransactions(urlId) {
         });
       }, []);
         
+      function openPopout(transaction) {
+        setSelectedTransaction(transaction);
+        setShowModal(true);
+      }
 
-    const router = useRouter();
+  const closePopout = (e) => {
+    e.preventDefault();
+    setShowModal(false);
+  };
 
 
   return (
     <div>
+      {showModal && <EditTransaction transaction={selectedTransaction} onClose={closePopout} />}
       <header className="header">
         <Link className="back" href="/review-budget">
           Back
@@ -52,11 +62,13 @@ function SingleCategoryTransactions(urlId) {
         </div>
         {data.map((transaction) => {
           return (
-            <div key={transaction.id} className="categoryItem">
+            <div key={transaction.id} onClick={()=>openPopout(transaction)} className="categoryItem">
               <div className="spaceBetween">
                 <div>
                   {transaction.description}{" "}
-                  <p style={{fontSize: "10px"}}>{transaction.transaction_date.split(" ")[0]}</p>
+                  <p style={{ fontSize: "10px" }}>
+                    {transaction.transaction_date.split(" ")[0]}
+                  </p>
                 </div>
                 <div>${transaction.amount}</div>
               </div>

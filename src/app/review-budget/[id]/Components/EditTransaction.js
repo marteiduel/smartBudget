@@ -1,22 +1,41 @@
 "use client";
 import styles from "./styles.module.css";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { addCategory } from "../../../lib/categories";
 
-function EditTransaction({ onClose }) {
-  const router = useRouter();
-  const [categoryName, setCategoryName] = useState("");
-  const [categoryBudget, setCategoryBudget] = useState("");
+function EditTransaction({ onClose, transaction }) {
+    const formatDate = (date) => {
+      let d = new Date(date),
+        month = "" + (d.getMonth() + 1),
+        day = "" + d.getDate(),
+        year = d.getFullYear();
+
+      if (month.length < 2) month = "0" + month;
+      if (day.length < 2) day = "0" + day;
+
+      return [year, month, day].join("-");
+    };
+  const [transactionDescription, setTransactionDescription] = useState(transaction.description);
+  const [transactionAmount, setTransactionAmount] = useState(transaction.amount);
+  const [transactionDate, setTransactionDate] = useState(formatDate(transaction.date));
+
+
+
 
   const handleInsideClick = (e) => {
     e.stopPropagation();
   };
 
-  async function addCategory(e) {
-    await addCategory(categoryName, categoryBudget, 1);
-    setCategoryBudget("");
-    setCategoryName("");
+  async function editTransaction() {
+    await 
+    fetch(
+      `https://marteiduel.com/smartbudget/edit_transaction.php?transaction_id=${transaction.id}&description=${transactionDescription}&amount=${transactionAmount}&date=${transactionDate}`
+    )
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return res.json();
+      })
     onClose();
   }
 
@@ -26,28 +45,35 @@ function EditTransaction({ onClose }) {
         <form
           className={styles.form}
           onSubmit={(e) => {
-            addCategory(e);
+            editTransaction(e);
           }}
         >
-          <h1 className={styles.addCategoryTextTitle}>Add Category</h1>
+          <h1 className={styles.addCategoryTextTitle}>Edit Transaction</h1>
 
           <div className={styles.itemsCenter}>
-            <label>Category Name</label>
+            <label>Description</label>
             <input
-              onChange={(e) => setCategoryName(e.target.value)}
+              onChange={(e) => setTransactionDescription(e.target.value)}
               type="text"
-              placeholder="Ex. Groceries"
-              value={categoryName}
+              value={transactionDescription}
               required
             />
           </div>
           <div className={styles.itemsCenter}>
-            <label>Category Budget</label>
+            <label>Amount</label>
             <input
-              onChange={(e) => setCategoryBudget(e.target.value)}
+              onChange={(e) => setTransactionAmount(e.target.value)}
               type="number"
-              placeholder="Ex. 100"
-              value={categoryBudget}
+              value={transactionAmount}
+              required
+            />
+          </div>
+          <div className={styles.itemsCenter}>
+            <label>Date</label>
+            <input
+              onChange={(e) => setTransactionDate(e.target.value)}
+              type="date"
+              value={transactionDate}
               required
             />
           </div>
@@ -55,6 +81,7 @@ function EditTransaction({ onClose }) {
           <button className={styles.button} type="submit">
             Add Category
           </button>
+          <button>Delete</button>
         </form>
       </div>
     </div>

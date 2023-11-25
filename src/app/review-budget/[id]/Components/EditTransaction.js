@@ -1,53 +1,55 @@
-"use client";
 import styles from "./styles.module.css";
 import { useState } from "react";
 
 function EditTransaction({ onClose, transaction }) {
-    const formatDate = (date) => {
-      let d = new Date(date),
-        month = "" + (d.getMonth() + 1),
-        day = "" + d.getDate(),
-        year = d.getFullYear();
+  const formatDate = (dateString) => {
+    if (!dateString) {
+      console.error("Invalid date string:", dateString);
+      return "";
+    }
+    const datePart = dateString.split(" ")[0];
+    const [year, month, day] = datePart.split("-");
+    if (!year || !month || !day) {
+      console.error("Invalid date components:", year, month, day);
+      return "";
+    }
+    return [year, month, day].join("-");
+  };
 
-      if (month.length < 2) month = "0" + month;
-      if (day.length < 2) day = "0" + day;
-
-      return [year, month, day].join("-");
-    };
-  const [transactionDescription, setTransactionDescription] = useState(transaction.description);
-  const [transactionAmount, setTransactionAmount] = useState(transaction.amount);
-  const [transactionDate, setTransactionDate] = useState(formatDate(transaction.date));
-
-
-
+  const [transactionDescription, setTransactionDescription] = useState(
+    transaction.description
+  );
+  const [transactionAmount, setTransactionAmount] = useState(
+    transaction.amount
+  );
+  const [transactionDate, setTransactionDate] = useState(
+    formatDate(transaction.transaction_date)
+  );
 
   const handleInsideClick = (e) => {
     e.stopPropagation();
   };
 
-  async function editTransaction() {
-    await 
-    fetch(
+  // Function to edit the transaction
+  async function editTransaction(e) {
+    e.preventDefault(); 
+
+    // Fetch request to update the transaction
+    const response = await fetch(
       `https://marteiduel.com/smartbudget/edit_transaction.php?transaction_id=${transaction.id}&description=${transactionDescription}&amount=${transactionAmount}&date=${transactionDate}`
-    )
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error("Network response was not ok");
-        }
-        return res.json();
-      })
+    );
+
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+
     onClose();
   }
 
   return (
     <div className={styles.overlay} onClick={onClose}>
       <div className={styles.popUp} onClick={handleInsideClick}>
-        <form
-          className={styles.form}
-          onSubmit={(e) => {
-            editTransaction(e);
-          }}
-        >
+        <form className={styles.form} onSubmit={editTransaction}>
           <h1 className={styles.addCategoryTextTitle}>Edit Transaction</h1>
 
           <div className={styles.itemsCenter}>
@@ -59,6 +61,7 @@ function EditTransaction({ onClose, transaction }) {
               required
             />
           </div>
+
           <div className={styles.itemsCenter}>
             <label>Amount</label>
             <input
@@ -68,6 +71,7 @@ function EditTransaction({ onClose, transaction }) {
               required
             />
           </div>
+
           <div className={styles.itemsCenter}>
             <label>Date</label>
             <input
@@ -79,7 +83,7 @@ function EditTransaction({ onClose, transaction }) {
           </div>
 
           <button className={styles.button} type="submit">
-            Add Category
+            Save Changes
           </button>
           <button>Delete</button>
         </form>

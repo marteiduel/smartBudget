@@ -46,7 +46,7 @@ function SingleCategoryTransactions(urlId) {
       <div className={`${styles.backBox} backBox`}>
         <div className="categoryItem">
           <div className="spaceBetween">
-            <p className="pr-4">Date</p>
+            {/* <p className="pr-4">Date</p> */}
             <p>Category</p>
             <p className="pr-4">Amount</p>
           </div>
@@ -55,8 +55,10 @@ function SingleCategoryTransactions(urlId) {
           return (
             <div key={transaction.id} className="categoryItem">
               <div className="spaceBetween">
-                <div>{transaction.transaction_date}</div>
-                <div>{transaction.description}</div>
+                <div>
+                  {transaction.description}{" "}
+                  <p style={{fontSize: "10px"}}>{transaction.transaction_date.split(" ")[0]}</p>
+                </div>
                 <div>${transaction.amount}</div>
               </div>
             </div>

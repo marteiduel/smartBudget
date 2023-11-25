@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { getCategories } from "../lib/categories";
-import Popout from "./components/AddCategory";
+import Popout from "../review-budget/[id]/components/AddCategory";
 import { useState, useEffect } from "react";
 
 export default function Categories() {

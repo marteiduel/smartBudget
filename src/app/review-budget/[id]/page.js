@@ -46,7 +46,6 @@ function SingleCategoryTransactions(urlId) {
       <div className={`${styles.backBox} backBox`}>
         <div className="categoryItem">
           <div className="spaceBetween">
-            {/* <p className="pr-4">Date</p> */}
             <p>Category</p>
             <p className="pr-4">Amount</p>
           </div>

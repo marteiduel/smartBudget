@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { addCategory } from "../../../lib/categories";
 
-function Popout({ onClose }) {
+function EditTransaction({ onClose }) {
   const router = useRouter();
   const [categoryName, setCategoryName] = useState("");
   const [categoryBudget, setCategoryBudget] = useState("");
@@ -61,4 +61,4 @@ function Popout({ onClose }) {
   );
 }
 
-export default Popout;
+export default EditTransaction;

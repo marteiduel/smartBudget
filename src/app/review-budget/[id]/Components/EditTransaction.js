@@ -30,21 +30,23 @@ function EditTransaction({ onClose, transaction }) {
     e.stopPropagation();
   };
 
-  // Function to edit the transaction
+  //Edit transaction
   async function editTransaction(e) {
     e.preventDefault(); 
-
-    // Fetch request to update the transaction
-    const response = await fetch(
-      `https://marteiduel.com/smartbudget/edit_transaction.php?transaction_id=${transaction.id}&description=${transactionDescription}&amount=${transactionAmount}&date=${transactionDate}`
-    );
-
-    if (!response.ok) {
-      throw new Error("Network response was not ok");
-    }
-
-    onClose();
+  await fetch(
+    `https://marteiduel.com/smartbudget/edit_transaction.php?transaction_id=${transaction.id}&description=${transactionDescription}&amount=${transactionAmount}&date=${transactionDate}`
+  );
+  onClose();
   }
+
+  //Delete transaction
+  const handleDelete = async (e) => {
+    e.preventDefault();
+    await fetch(
+      `https://marteiduel.com/smartbudget/delete_transaction.php?transaction_id=${transaction.id}`
+    );
+    onClose();
+  };
 
   return (
     <div className={styles.overlay} onClick={onClose}>
@@ -85,7 +87,11 @@ function EditTransaction({ onClose, transaction }) {
           <button className={styles.button} type="submit">
             Save Changes
           </button>
-          <button className={styles.deleteButton}>Delete</button>
+          <button 
+          className={styles.deleteButton}
+          onClick={handleDelete}>
+          Delete
+          </button>
         </form>
       </div>
     </div>

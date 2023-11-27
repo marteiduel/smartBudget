@@ -1,11 +1,9 @@
 "use client";
 import Link from "next/link";
 import {useState, useEffect} from "react";
-import { useRouter } from "next/navigation";
 import styles from "./styles.module.css";
 
 export default function ReviewBudget() {
-  const router = useRouter();
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -15,7 +13,6 @@ export default function ReviewBudget() {
       );
       const data = await res.json();
       setData(data);
-      console.log(data);
     }
     getData();
   }, []);

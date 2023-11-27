@@ -21,7 +21,13 @@ function EditTransaction({ onClose, transactionId }) {
     <div>
       <div className={styles.overlay} onClick={onClose}>
         <div className={styles.popUp} onClick={handleInsideClick}>
-          {transactionId}
+          <h2>Are you sure you want to delete this transaction?</h2>
+          <button className={styles.deleteButton} onClick={handleDelete}>
+            Delete
+          </button>
+          <button className={styles.cancelButton} onClick={onClose}>
+            Cancel
+          </button>
         </div>
       </div>
     </div>

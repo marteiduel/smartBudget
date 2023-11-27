@@ -45,7 +45,13 @@ function SingleCategoryTransactions(urlId) {
 
   return (
     <div>
-      {showModal && <EditTransaction transaction={selectedTransaction} onClose={closePopout} />}
+      {showModal && (
+        <EditTransaction
+          transaction={selectedTransaction}
+          onClose={closePopout}
+          categoryId={id}
+        />
+      )}
       <header className="header">
         <Link className="back" href="/review-budget">
           Back
@@ -62,7 +68,11 @@ function SingleCategoryTransactions(urlId) {
         </div>
         {data.map((transaction) => {
           return (
-            <div key={transaction.id} onClick={()=>openPopout(transaction)} className="categoryItem">
+            <div
+              key={transaction.id}
+              onClick={() => openPopout(transaction)}
+              className="categoryItem"
+            >
               <div className="spaceBetween">
                 <div>
                   {transaction.description}{" "}

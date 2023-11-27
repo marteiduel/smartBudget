@@ -1,8 +1,9 @@
-import styles from "./styles.module.css";
 import { useState } from "react";
+import Link from "next/link";
 import DeleteTransaction from "./DeleteTransaction";
+import styles from "./styles.module.css";
 
-function EditTransaction({ onClose, transaction }) {
+function EditTransaction({ onClose, transaction, categoryId }) {
   const formatDate = (dateString) => {
     if (!dateString) {
       console.error("Invalid date string:", dateString);
@@ -51,7 +52,7 @@ function EditTransaction({ onClose, transaction }) {
 
     const closePopout = (e) => {
       e.preventDefault();
-      setShowModal(false);
+      setShowDeleteModal(false);
     };
 
   return (
@@ -62,6 +63,9 @@ function EditTransaction({ onClose, transaction }) {
           onClose={closePopout}
         />
       )}
+      <Link className="back" style={{color:"white"}} href={`/review-budget/${categoryId}`}>
+        Back
+      </Link>
       <div className={styles.popUp} onClick={handleInsideClick}>
         <form className={styles.form} onSubmit={editTransaction}>
           <h1 className={styles.addCategoryTextTitle}>Edit Transaction</h1>

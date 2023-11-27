@@ -30,7 +30,7 @@ function SingleCategoryTransactions(urlId) {
             error
           );
         });
-      }, []);
+      }, [id]);
         
       function openPopout(transaction) {
         setSelectedTransaction(transaction);

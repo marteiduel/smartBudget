@@ -26,7 +26,7 @@ export default function AddExpense() {
     e.preventDefault();
     try {
       const response = await fetch(
-        "https://marteiduel.com/smartbudget/add_expense.php",
+        "https://marteiduel.com/smartbudget/transaction.php",
         {
           method: "POST",
           headers: {

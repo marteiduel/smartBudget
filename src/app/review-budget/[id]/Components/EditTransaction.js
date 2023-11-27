@@ -4,6 +4,7 @@ import DeleteTransaction from "./DeleteTransaction";
 import styles from "./styles.module.css";
 
 function EditTransaction({ onClose, transaction, categoryId }) {
+  
   const formatDate = (dateString) => {
     if (!dateString) {
       console.error("Invalid date string:", dateString);
@@ -34,14 +35,51 @@ function EditTransaction({ onClose, transaction, categoryId }) {
     e.stopPropagation();
   };
 
-  //Edit transaction
-  async function editTransaction(e) {
-    e.preventDefault(); 
-  await fetch(
-    `https://marteiduel.com/smartbudget/edit_transaction.php?transaction_id=${transaction.id}&description=${transactionDescription}&amount=${transactionAmount}&date=${transactionDate}`
-  );
-  onClose();
+  const formatDateForDataBase = (dateString) => {
+    if (!dateString) {
+      console.error("Invalid date string:", dateString);
+      return "";
+    }
+    // Append " 00:00:00" to the date string
+    return dateString + " 00:00:00";
+  };
+
+
+const editTransaction = async (e) => {
+  e.preventDefault();
+  const formattedDate = formatDateForDataBase(transactionDate);
+
+  try {
+    // Capture the response from the fetch call into a variable
+    const response = await fetch(
+      "https://marteiduel.com/smartbudget/transaction.php",
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          transaction_id: transaction.id,
+          amount: parseFloat(transactionAmount),
+          description: transactionDescription,
+          created_at: formattedDate,
+          user_id: 1,
+        }),
+      }
+    );
+
+    // Use the response variable to get the JSON data
+    const data = await response.json();
+    if (data.success) {
+      window.location.reload();
+    } else {
+      console.error("Failed to update the transaction:", data.message);
+    }
+  } catch (error) {
+    console.error("Error during fetch operation:", error);
   }
+};
+
 
   //Delete transaction
   const handleDelete = async (e) => {
@@ -61,6 +99,7 @@ function EditTransaction({ onClose, transaction, categoryId }) {
         <DeleteTransaction
           transactionId={transaction.id}
           onClose={closePopout}
+          categoryId={categoryId}
         />
       )}
       <Link className="back" style={{color:"white"}} href={`/review-budget/${categoryId}`}>

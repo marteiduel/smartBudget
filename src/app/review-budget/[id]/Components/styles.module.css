@@ -12,6 +12,21 @@
   overflow-x: hidden !important;
   background: white;
 }
+.deletePopUp{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
+  margin: 1rem;
+  padding: 1rem;
+  border-radius: 10px;
+  height: 30vh;
+  max-width: 100% !important;
+  width: 100%;
+  overflow-x: hidden !important;
+  background: white;
+
+}
 
 .overlay {
   position: fixed;

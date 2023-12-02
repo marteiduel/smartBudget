@@ -1,12 +1,15 @@
 "use client";
 import Link from "next/link";
 import { getCategories } from "../lib/categories";
-import Popout from "../review-budget/[id]/Components/EditTransaction";
+import AddCategoryPopUp from "./components/AddCategory";
+import EditCategoryPopUp from "./components/EditCategory";
 import { useState, useEffect } from "react";
 
 export default function Categories() {
   const [loading, isLoading] = useState(true);
-  const [showModal, setShowModal] = useState(false);
+  const [showAddNewCategoryModal, setShowAddNewCategoryModal] = useState(false);
+  const [showEditCategoryModal, setShowEditCategoryModal] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState(null);
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -16,21 +19,20 @@ export default function Categories() {
     });
   }, []);
 
-  function openPopout(e) {
-    e.preventDefault();
-    setShowModal(true);
-  }
-
   const closePopout = (e) => {
     e.preventDefault();
-    setShowModal(false);
+    setShowAddNewCategoryModal(false);
+    setShowEditCategoryModal(false);
   };
 
   if (loading) return <div>Loading...</div>;
 
   return (
     <div>
-      {showModal && <Popout onClose={closePopout} />}
+      {showAddNewCategoryModal && <AddCategoryPopUp onClose={closePopout} />}
+      {showEditCategoryModal && (
+        <EditCategoryPopUp data={selectedCategory} onClose={closePopout} />
+      )}
       <header className="header">
         <Link className="back" href="/">
           Back
@@ -41,7 +43,14 @@ export default function Categories() {
       <div className="backBox">
         {data.map((category) => {
           return (
-            <div key={category.categoryId} className="categoryItem">
+            <div
+              key={category.categoryId}
+              className="categoryItem"
+              onClick={() => {
+                setShowEditCategoryModal(true);
+                setSelectedCategory(category);
+              }}
+            >
               <div className="spaceBetween">
                 <p>{category.category_name}</p>
                 <div>
@@ -53,7 +62,12 @@ export default function Categories() {
         })}
       </div>
       <div className="justifyCenter">
-        <p className="lowerButtons" onClick={openPopout}>
+        <p
+          className="lowerButtons"
+          onClick={() => {
+            setShowAddNewCategoryModal(true);
+          }}
+        >
           Add Category
         </p>
       </div>

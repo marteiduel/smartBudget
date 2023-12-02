@@ -3,19 +3,18 @@ import styles from "./styles.module.css";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
-function AddCategoryPopUp({ onClose }) {
+function EditCategoryPopUp({ onClose, data }) {
   const router = useRouter();
-  const [categoryName, setCategoryName] = useState("");
-  const [categoryBudget, setCategoryBudget] = useState("");
+  console.log(data);
+  const categoryId = data.category_id;
+  const [categoryName, setCategoryName] = useState(data.category_name);
+  const [categoryBudget, setCategoryBudget] = useState(data.category_budget);
 
   const handleInsideClick = (e) => {
     e.stopPropagation();
   };
 
-  async function addCategory(e) {
-    await addCategory(categoryName, categoryBudget, 1);
-    setCategoryBudget("");
-    setCategoryName("");
+  async function EditCategory(e) {
     onClose();
   }
 
@@ -28,14 +27,15 @@ function AddCategoryPopUp({ onClose }) {
             addCategory(e);
           }}
         >
-          <h1 className={styles.addCategoryTextTitle}>Add Category</h1>
+          <h1 className={styles.addCategoryTextTitle}>
+            Edit Category: {data.category_name}
+          </h1>
 
           <div className={styles.itemsCenter}>
             <label>Category Name</label>
             <input
               onChange={(e) => setCategoryName(e.target.value)}
               type="text"
-              placeholder="Ex. Groceries"
               value={categoryName}
               required
             />
@@ -45,14 +45,13 @@ function AddCategoryPopUp({ onClose }) {
             <input
               onChange={(e) => setCategoryBudget(e.target.value)}
               type="number"
-              placeholder="Ex. 100"
               value={categoryBudget}
               required
             />
           </div>
 
           <button className={styles.button} type="submit">
-            Add Category
+            Edit Category
           </button>
         </form>
       </div>
@@ -60,4 +59,4 @@ function AddCategoryPopUp({ onClose }) {
   );
 }
 
-export default AddCategoryPopUp;
+export default EditCategoryPopUp;

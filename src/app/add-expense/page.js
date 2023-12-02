@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import styles from "./styles.module.css";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { getCategories } from "../lib/categories";
 
 export default function AddExpense() {

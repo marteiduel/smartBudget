@@ -1,10 +1,9 @@
 "use client";
 import styles from "./styles.module.css";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { addCategory } from "../../lib/categories";
 
 function AddCategoryPopUp({ onClose }) {
-  const router = useRouter();
   const [categoryName, setCategoryName] = useState("");
   const [categoryBudget, setCategoryBudget] = useState("");
 
@@ -12,22 +11,16 @@ function AddCategoryPopUp({ onClose }) {
     e.stopPropagation();
   };
 
-  async function addCategory(e) {
+  async function handleAddCategory(e) {
+    e.preventDefault();
     await addCategory(categoryName, categoryBudget, 1);
-    setCategoryBudget("");
-    setCategoryName("");
-    onClose();
+    window.location.reload();
   }
 
   return (
     <div className={styles.overlay} onClick={onClose}>
       <div className={styles.popUp} onClick={handleInsideClick}>
-        <form
-          className={styles.form}
-          onSubmit={(e) => {
-            addCategory(e);
-          }}
-        >
+        <form className={styles.form} onSubmit={handleAddCategory}>
           <h1 className={styles.addCategoryTextTitle}>Add Category</h1>
 
           <div className={styles.itemsCenter}>

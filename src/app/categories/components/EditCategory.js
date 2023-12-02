@@ -21,12 +21,7 @@ function EditCategoryPopUp({ onClose, data }) {
   return (
     <div className={styles.overlay} onClick={onClose}>
       <div className={styles.popUp} onClick={handleInsideClick}>
-        <form
-          className={styles.form}
-          onSubmit={(e) => {
-            addCategory(e);
-          }}
-        >
+        <form className={styles.form} onSubmit={EditCategory}>
           <h1 className={styles.addCategoryTextTitle}>
             Edit Category: {data.category_name}
           </h1>
@@ -52,6 +47,10 @@ function EditCategoryPopUp({ onClose, data }) {
 
           <button className={styles.button} type="submit">
             Edit Category
+          </button>
+
+          <button className={styles.deleteButton} onClick={handleDelete}>
+            Delete
           </button>
         </form>
       </div>

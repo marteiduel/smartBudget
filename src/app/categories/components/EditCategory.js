@@ -14,6 +14,24 @@ function EditCategoryPopUp({ onClose, data }) {
     e.stopPropagation();
   };
 
+  const handleDelete = async (e) => {
+    e.preventDefault();
+    // const response = await fetch(
+    //   "https://marteiduel.com/smartbudget/category.php",
+    //   {
+    //     method: "DELETE",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify({
+    //       category_id: categoryId,
+    //     }),
+    //   }
+    // );
+    // const data = await response.json();
+    // router.push("/categories");
+  };
+
   async function EditCategory(e) {
     onClose();
   }

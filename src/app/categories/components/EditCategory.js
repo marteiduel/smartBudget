@@ -1,12 +1,10 @@
 "use client";
 import styles from "./styles.module.css";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { deleteCategory, editCategory } from "@/app/lib/categories";
 
 function EditCategoryPopUp({ onClose, data }) {
-  const router = useRouter();
-  console.log(data);
-  const categoryId = data.category_id;
+  const categoryId = data.categoryId;
   const [categoryName, setCategoryName] = useState(data.category_name);
   const [categoryBudget, setCategoryBudget] = useState(data.category_budget);
 
@@ -14,32 +12,22 @@ function EditCategoryPopUp({ onClose, data }) {
     e.stopPropagation();
   };
 
-  const handleDelete = async (e) => {
+  const deleteHandler = async (e) => {
     e.preventDefault();
-    // const response = await fetch(
-    //   "https://marteiduel.com/smartbudget/category.php",
-    //   {
-    //     method: "DELETE",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify({
-    //       category_id: categoryId,
-    //     }),
-    //   }
-    // );
-    // const data = await response.json();
-    // router.push("/categories");
+    await deleteCategory(categoryId);
+    window.location.reload();
   };
 
-  async function EditCategory(e) {
-    onClose();
+  async function editHandler(e) {
+    e.preventDefault();
+    await editCategory(categoryName, categoryBudget, categoryId);
+    window.location.reload();
   }
 
   return (
     <div className={styles.overlay} onClick={onClose}>
       <div className={styles.popUp} onClick={handleInsideClick}>
-        <form className={styles.form} onSubmit={EditCategory}>
+        <form className={styles.form} onSubmit={editHandler}>
           <h1 className={styles.addCategoryTextTitle}>
             Edit Category: {data.category_name}
           </h1>
@@ -67,7 +55,7 @@ function EditCategoryPopUp({ onClose, data }) {
             Edit Category
           </button>
 
-          <button className={styles.deleteButton} onClick={handleDelete}>
+          <button className={styles.deleteButton} onClick={deleteHandler}>
             Delete
           </button>
         </form>

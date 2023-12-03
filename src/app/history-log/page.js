@@ -2,38 +2,36 @@
 import Link from "next/link";
 import getHistoryLog from "../lib/getHistoryLog";
 import { useState, useEffect } from "react";
-import Popout from "./components/singleLog";
+import { getCategories } from "../lib/categories";
 
 export default function HistoryLog() {
-  const [loading, isLoading] = useState(true);
-  const [data, setData] = useState([]);
-  const [log, setLog] = useState([]);
-  const [showModal, setShowModal] = useState(false);
+  const [loading, isLoading] = useState(false);
+  const [showAdvancedOptions, setShowAdvancedOptions] = useState(false);
 
-  useEffect(() => {
-    getHistoryLog().then((data) => {
-      setData(data);
-      isLoading(false);
-    });
-  }, []);
+  // State for advanced filters
+  const [category, setCategory] = useState([]);
+  const [minAmount, setMinAmount] = useState("");
+  const [maxAmount, setMaxAmount] = useState("");
+  const [keyword, setKeyword] = useState("");
+  // const [transactionType, setTransactionType] = useState("");
 
-  const openPopout = (e, id) => {
-    e.preventDefault();
-    setLog(id);
-    setShowModal(true);
-  };
+  useEffect(() => {}, []);
 
-  const closePopout = (e) => {
-    if (e.target.id !== "popout") {
-      setShowModal(false);
-    }
+  const toggleAdvancedOptions = () => {
+    setShowAdvancedOptions(!showAdvancedOptions);
+    const categories = getCategories();
+    categories
+      .then((data) => {
+        setCategory(data);
+        console.log(data);
+      })
+      .catch((error) => console.error("Error fetching categories:", error));
   };
 
   if (loading) return <div>Loading...</div>;
 
   return (
     <>
-      {showModal && <Popout id={log} onClose={closePopout} />}
       <header className="header">
         <Link className="back" href="/">
           Back
@@ -42,32 +40,85 @@ export default function HistoryLog() {
       </header>
 
       <div className="backBox">
-        {data.map((transaction) => {
-          return (
-            <div
-              onClick={(e) => {
-                openPopout(e, transaction.id);
-              }}
-              key={transaction.id}
-              className="categoryItem"
-            >
-              <div className="spaceBetween">
-                {/* Next Lines 3 Tailwind */}
-                <div className="flex">
-                  <p className="w-4/5">{transaction.description}</p>
-                  <p className="text-xs self-end w-14">
-                    {transaction.transaction_date.slice(5, 10)}
-                  </p>
-                </div>
-                <div className="spaceBetween">${transaction.amount}</div>
+        <form onSubmit={(e) => e.preventDefault()}>
+          <div>Starting Date</div>
+          <input className="whiteBackgroundSquare" type="date" />
+          <div>Ending Date</div>
+          <input className="whiteBackgroundSquare" type="date" />
+
+          <button onClick={toggleAdvancedOptions}>Advanced Options</button>
+
+          {showAdvancedOptions && (
+            <div>
+              <div>
+                <label>Category:</label>
+                <select
+                  value={category}
+                  onChange={(e) => setCategory(e.target.value)}
+                >
+                  <option value="">Select Category</option>
+                  {category.map((category) => {
+                    return (
+                      <option
+                        key={category.categoryId}
+                        value={category.categoryId}
+                        required
+                      >
+                        {category.category_name}
+                      </option>
+                    );
+                  })}
+                </select>
+              </div>
+
+              <div>
+                <label>Min Amount:</label>
+                <input
+                  type="number"
+                  value={minAmount}
+                  onChange={(e) => setMinAmount(e.target.value)}
+                  placeholder="Minimum Amount"
+                />
+              </div>
+
+              <div>
+                <label>Max Amount:</label>
+                <input
+                  type="number"
+                  value={maxAmount}
+                  onChange={(e) => setMaxAmount(e.target.value)}
+                  placeholder="Maximum Amount"
+                />
+              </div>
+
+              {/* <div>
+                <label>Transaction Type:</label>
+                <select
+                  value={transactionType}
+                  onChange={(e) => setTransactionType(e.target.value)}
+                >
+                  <option value="">Select Type</option>
+                  <option value="income">Income</option>
+                  <option value="expense">Expense</option>
+                </select>
+              </div> */}
+
+              <div>
+                <label>Keyword:</label>
+                <input
+                  type="text"
+                  value={keyword}
+                  onChange={(e) => setKeyword(e.target.value)}
+                  placeholder="Search keyword"
+                />
               </div>
             </div>
-          );
-        })}
+          )}
+        </form>
       </div>
 
       <div className="flex justify-center">
-        <div className={`lowerButtons`}>Load More</div>
+        <div className={`lowerButtons`}>Generate Report</div>
       </div>
     </>
   );

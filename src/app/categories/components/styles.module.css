@@ -86,3 +86,16 @@
   cursor: pointer;
   transition: all 0.3s ease-in-out;
 }
+
+.deleteButton {
+  margin-top: 1.6rem;
+  width: 50%;
+  border-radius: 10px;
+  font-size: 1.2rem;
+  height: 2rem;
+  font-weight: 500;
+  background-color: #e83a3a;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  color: white;
+}

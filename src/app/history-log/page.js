@@ -3,6 +3,8 @@ import Link from "next/link";
 import getHistoryLog from "../lib/getHistoryLog";
 import { useState, useEffect } from "react";
 import { getCategories } from "../lib/categories";
+//import css
+import styles from "./styles.module.css";
 
 export default function HistoryLog() {
   const [loading, isLoading] = useState(false);
@@ -40,13 +42,25 @@ export default function HistoryLog() {
       </header>
 
       <div className="backBox">
-        <form onSubmit={(e) => e.preventDefault()}>
-          <div>Starting Date</div>
+        <form
+          onSubmit={(e) => e.preventDefault()}
+          className={styles.historyLogForm}
+        >
+          <h3 className={styles.h2}>Starting Date</h3>
           <input className="whiteBackgroundSquare" type="date" />
-          <div>Ending Date</div>
+          <div className={styles.h2}>Ending Date</div>
           <input className="whiteBackgroundSquare" type="date" />
 
-          <button onClick={toggleAdvancedOptions}>Advanced Options</button>
+          <button
+            onClick={toggleAdvancedOptions}
+            className={
+              showAdvancedOptions
+                ? styles.advanceButtonActive
+                : styles.advanceButtonInactive
+            }
+          >
+            Advanced Options
+          </button>
 
           {showAdvancedOptions && (
             <div>

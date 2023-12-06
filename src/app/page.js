@@ -69,18 +69,6 @@ export default function Home() {
           />
         </div>
       </Link>
-      <Link className={styles.mainButtons} href="/test">
-        <div className={styles.innerButton}>
-          <p className={styles.innerButtonText}>Test</p>
-          <Image
-            src="/assets/icons/history-log.png"
-            className={styles.icons}
-            alt="Add Expense"
-            width={50}
-            height={50}
-          />
-        </div>
-      </Link>
     </main>
   );
 }

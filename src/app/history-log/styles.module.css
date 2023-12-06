@@ -40,3 +40,78 @@
   font-weight: 400;
   cursor: pointer;
 }
+
+.labels {
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.description {
+  background-color: #ebebeb;
+  margin: 1rem 0.2rem;
+  border-radius: 10px;
+  font-size: 1.2rem;
+  font-weight: 400;
+  width: 98%;
+  height: 7rem;
+  word-break: break-all;
+  white-space: normal;
+  resize: none;
+  padding: 7px;
+}
+
+.historyLogAmountsContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 1.5rem;
+}
+
+.historyLogAmounts {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 48%;
+  height: 3rem;
+  border: none;
+  border-radius: 0.5rem;
+  background-color: #ebebeb;
+  color: #333;
+  font-size: 1rem;
+  font-weight: 400;
+  cursor: pointer;
+}
+
+.centerAmount {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.marginTop {
+  margin-top: 1.5rem;
+}
+
+.categoryTitle {
+  font-size: 1.2rem;
+  font-weight: 500;
+  display: flex;
+  justify-content: center;
+}
+
+.keyWordInputField {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  background-color: #ebebeb;
+  margin: 1rem 0.2rem;
+  height: 3rem;
+  border-radius: 10px;
+  font-size: 1.2rem;
+  font-weight: 500;
+  padding: 7px;
+  width: 97.5%;
+}

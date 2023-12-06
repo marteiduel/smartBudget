@@ -64,9 +64,10 @@ export default function HistoryLog() {
 
           {showAdvancedOptions && (
             <div>
-              <div>
-                <label>Category:</label>
+              <div className={styles.marginTop}>
+                <label className={styles.categoryTitle}>Category</label>
                 <select
+                  className="whiteBackgroundSquare"
                   value={category}
                   onChange={(e) => setCategory(e.target.value)}
                 >
@@ -84,27 +85,27 @@ export default function HistoryLog() {
                   })}
                 </select>
               </div>
+              <div className={styles.historyLogAmountsContainer}>
+                <div className={styles.centerAmount}>
+                  <label className={styles.labels}>Min Amount</label>
+                  <input
+                    className={styles.historyLogAmounts}
+                    type="number"
+                    value={minAmount}
+                    onChange={(e) => setMinAmount(e.target.value)}
+                  />
+                </div>
 
-              <div>
-                <label>Min Amount:</label>
-                <input
-                  type="number"
-                  value={minAmount}
-                  onChange={(e) => setMinAmount(e.target.value)}
-                  placeholder="Minimum Amount"
-                />
+                <div className={styles.centerAmount}>
+                  <label className={styles.labels}>Max Amount</label>
+                  <input
+                    className={styles.historyLogAmounts}
+                    type="number"
+                    value={maxAmount}
+                    onChange={(e) => setMaxAmount(e.target.value)}
+                  />
+                </div>
               </div>
-
-              <div>
-                <label>Max Amount:</label>
-                <input
-                  type="number"
-                  value={maxAmount}
-                  onChange={(e) => setMaxAmount(e.target.value)}
-                  placeholder="Maximum Amount"
-                />
-              </div>
-
               {/* <div>
                 <label>Transaction Type:</label>
                 <select
@@ -117,9 +118,10 @@ export default function HistoryLog() {
                 </select>
               </div> */}
 
-              <div>
-                <label>Keyword:</label>
+              <div className={styles.marginTop}>
+                <label className={styles.categoryTitle}>Keyword</label>
                 <input
+                  className={styles.keyWordInputField}
                   type="text"
                   value={keyword}
                   onChange={(e) => setKeyword(e.target.value)}

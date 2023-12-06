@@ -3,31 +3,33 @@ import Link from "next/link";
 import getHistoryLog from "../lib/getHistoryLog";
 import { useState, useEffect } from "react";
 import { getCategories } from "../lib/categories";
+import { initialState } from "./reducer";
 //import css
 import styles from "./styles.module.css";
 
 export default function HistoryLog() {
   const [loading, isLoading] = useState(false);
   const [showAdvancedOptions, setShowAdvancedOptions] = useState(false);
+  const [categoriesList, setCategoriesList] = useState([]);
 
   // State for advanced filters
-  const [category, setCategory] = useState([]);
+  const [category, setCategory] = useState("");
   const [minAmount, setMinAmount] = useState("");
   const [maxAmount, setMaxAmount] = useState("");
   const [keyword, setKeyword] = useState("");
   // const [transactionType, setTransactionType] = useState("");
 
-  useEffect(() => {}, []);
-
   const toggleAdvancedOptions = () => {
     setShowAdvancedOptions(!showAdvancedOptions);
-    const categories = getCategories();
-    categories
-      .then((data) => {
-        setCategory(data);
-        console.log(data);
-      })
-      .catch((error) => console.error("Error fetching categories:", error));
+    if (!showAdvancedOptions) {
+      const categories = getCategories();
+      categories
+        .then((data) => {
+          setCategoriesList(data);
+          console.log("categories", data);
+        })
+        .catch((error) => console.error("Error fetching categories:", error));
+    }
   };
 
   if (loading) return <div>Loading...</div>;
@@ -71,8 +73,8 @@ export default function HistoryLog() {
                   value={category}
                   onChange={(e) => setCategory(e.target.value)}
                 >
-                  <option value="">Select Category</option>
-                  {category.map((category) => {
+                  <option>Select Category</option>
+                  {categoriesList.map((category) => {
                     return (
                       <option
                         key={category.categoryId}
@@ -106,17 +108,6 @@ export default function HistoryLog() {
                   />
                 </div>
               </div>
-              {/* <div>
-                <label>Transaction Type:</label>
-                <select
-                  value={transactionType}
-                  onChange={(e) => setTransactionType(e.target.value)}
-                >
-                  <option value="">Select Type</option>
-                  <option value="income">Income</option>
-                  <option value="expense">Expense</option>
-                </select>
-              </div> */}
 
               <div className={styles.marginTop}>
                 <label className={styles.categoryTitle}>Keyword</label>
@@ -138,4 +129,18 @@ export default function HistoryLog() {
       </div>
     </>
   );
+}
+
+{
+  /* <div>
+                <label>Transaction Type:</label>
+                <select
+                  value={transactionType}
+                  onChange={(e) => setTransactionType(e.target.value)}
+                >
+                  <option value="">Select Type</option>
+                  <option value="income">Income</option>
+                  <option value="expense">Expense</option>
+                </select>
+              </div> */
 }

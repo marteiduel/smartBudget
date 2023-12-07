@@ -1,38 +1,49 @@
 "use client";
 import Link from "next/link";
-import getHistoryLog from "../lib/getHistoryLog";
-import { useState, useEffect } from "react";
+// import generateHistoryLog from "../lib/generateHistoryLog";
+import { useState, useReducer } from "react";
 import { getCategories } from "../lib/categories";
-import { initialState } from "./reducer";
-//import css
+import { initialState, reducer } from "./reducer";
+import { getTodayDate } from "../lib/todaysDate";
 import styles from "./styles.module.css";
 
 export default function HistoryLog() {
-  const [loading, isLoading] = useState(false);
+  const [state, dispatch] = useReducer(reducer, initialState);
+  console.log("state", state);
   const [showAdvancedOptions, setShowAdvancedOptions] = useState(false);
-  const [categoriesList, setCategoriesList] = useState([]);
 
-  // State for advanced filters
-  const [category, setCategory] = useState("");
-  const [minAmount, setMinAmount] = useState("");
-  const [maxAmount, setMaxAmount] = useState("");
-  const [keyword, setKeyword] = useState("");
-  // const [transactionType, setTransactionType] = useState("");
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (startingDate === "") {
+      alert("Please enter a starting date");
+      return;
+    }
+    if (endingDate === "") {
+      alert("Please enter an ending date");
+      return;
+    }
+    console.log("submit");
+    console.log("startingDate", startingDate);
+    console.log("endingDate", endingDate);
+    console.log("category", category);
+    console.log("minAmount", minAmount);
+    console.log("maxAmount", maxAmount);
+    console.log("keyword", keyword);
+  };
 
-  const toggleAdvancedOptions = () => {
-    setShowAdvancedOptions(!showAdvancedOptions);
-    if (!showAdvancedOptions) {
+  const toggleAdvancedOptions = (e) => {
+    e.preventDefault();
+    dispatch({ type: "TOGGLE_ADVANCED_OPTIONS" });
+    if (!state.showAdvancedOptions) {
       const categories = getCategories();
       categories
         .then((data) => {
-          setCategoriesList(data);
+          dispatch({ type: "SET_CATEGORIES", payload: data });
           console.log("categories", data);
         })
         .catch((error) => console.error("Error fetching categories:", error));
     }
   };
-
-  if (loading) return <div>Loading...</div>;
 
   return (
     <>
@@ -41,20 +52,36 @@ export default function HistoryLog() {
           Back
         </Link>
         <h1 className="pageTitle">History Log</h1>
+        <div>Reset</div>
       </header>
 
       <div className="backBox">
-        <form
-          onSubmit={(e) => e.preventDefault()}
-          className={styles.historyLogForm}
-        >
-          <h3 className={styles.h2}>Starting Date</h3>
-          <input className="whiteBackgroundSquare" type="date" />
-          <div className={styles.h2}>Ending Date</div>
-          <input className="whiteBackgroundSquare" type="date" />
+        <form className={styles.historyLogForm}>
+          <h3 className={styles.h2}>Starting Date*</h3>
+          <input
+            className="whiteBackgroundSquare"
+            type="date"
+            value={state.startingDate}
+            onChange={(e) =>
+              dispatch({ type: "SET_STARTING_DATE", payload: e.target.value })
+            }
+            max={getTodayDate()}
+            min="2023-01-01"
+          />
+          <div className={styles.h2}>Ending Date*</div>
+          <input
+            className="whiteBackgroundSquare"
+            type="date"
+            value={state.endingDate}
+            onChange={(e) =>
+              dispatch({ type: "SET_ENDING_DATE", payload: e.target.value })
+            }
+            max={getTodayDate()}
+            min="2023-01-02"
+          />
 
           <button
-            onClick={toggleAdvancedOptions}
+            onClick={(e) => toggleAdvancedOptions(e)}
             className={
               showAdvancedOptions
                 ? styles.advanceButtonActive
@@ -68,24 +95,31 @@ export default function HistoryLog() {
             <div>
               <div className={styles.marginTop}>
                 <label className={styles.categoryTitle}>Category</label>
-                <select
-                  className="whiteBackgroundSquare"
-                  value={category}
-                  onChange={(e) => setCategory(e.target.value)}
-                >
-                  <option>Select Category</option>
-                  {categoriesList.map((category) => {
-                    return (
-                      <option
-                        key={category.categoryId}
-                        value={category.categoryId}
-                        required
-                      >
-                        {category.category_name}
-                      </option>
-                    );
-                  })}
-                </select>
+                <div className={styles.centerAmount}>
+                  <select
+                    className="whiteBackgroundSquare"
+                    value={state.category}
+                    onChange={(e) =>
+                      dispatch({
+                        type: "SET_CATEGORY",
+                        payload: e.target.value,
+                      })
+                    }
+                  >
+                    <option>Select Category</option>
+                    {state.categoriesList.map((category) => {
+                      return (
+                        <option
+                          key={category.categoryId}
+                          value={category.categoryId}
+                          required
+                        >
+                          {category.category_name}
+                        </option>
+                      );
+                    })}
+                  </select>
+                </div>
               </div>
               <div className={styles.historyLogAmountsContainer}>
                 <div className={styles.centerAmount}>
@@ -93,8 +127,13 @@ export default function HistoryLog() {
                   <input
                     className={styles.historyLogAmounts}
                     type="number"
-                    value={minAmount}
-                    onChange={(e) => setMinAmount(e.target.value)}
+                    value={state.minAmount}
+                    onChange={(e) =>
+                      dispatch({
+                        type: "SET_MIN_AMOUNT",
+                        payload: e.target.value,
+                      })
+                    }
                   />
                 </div>
 
@@ -103,8 +142,13 @@ export default function HistoryLog() {
                   <input
                     className={styles.historyLogAmounts}
                     type="number"
-                    value={maxAmount}
-                    onChange={(e) => setMaxAmount(e.target.value)}
+                    value={state.maxAmount}
+                    onChange={(e) =>
+                      dispatch({
+                        type: "SET_MAX_AMOUNT",
+                        payload: e.target.value,
+                      })
+                    }
                   />
                 </div>
               </div>
@@ -114,8 +158,10 @@ export default function HistoryLog() {
                 <input
                   className={styles.keyWordInputField}
                   type="text"
-                  value={keyword}
-                  onChange={(e) => setKeyword(e.target.value)}
+                  value={state.keyword}
+                  onChange={(e) =>
+                    dispatch({ type: "SET_KEYWORD", payload: e.target.value })
+                  }
                   placeholder="Search keyword"
                 />
               </div>
@@ -123,24 +169,11 @@ export default function HistoryLog() {
           )}
         </form>
       </div>
-
       <div className="flex justify-center">
-        <div className={`lowerButtons`}>Generate Report</div>
+        <button onClick={handleSubmit} className={`lowerButtons`}>
+          Generate Report
+        </button>
       </div>
     </>
   );
-}
-
-{
-  /* <div>
-                <label>Transaction Type:</label>
-                <select
-                  value={transactionType}
-                  onChange={(e) => setTransactionType(e.target.value)}
-                >
-                  <option value="">Select Type</option>
-                  <option value="income">Income</option>
-                  <option value="expense">Expense</option>
-                </select>
-              </div> */
 }

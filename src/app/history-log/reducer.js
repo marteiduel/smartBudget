@@ -1,7 +1,9 @@
-const initialState = {
+export const initialState = {
   loading: false,
   showAdvancedOptions: false,
   categoriesList: [],
+  startingDate: "",
+  endingDate: "",
   category: "",
   minAmount: "",
   maxAmount: "",
@@ -9,12 +11,16 @@ const initialState = {
   // transactionType: "", // Uncomment if you plan to use this
 };
 
-function reducer(state, action) {
+export function reducer(state, action) {
   switch (action.type) {
     case "TOGGLE_LOADING":
       return { ...state, loading: !state.loading };
     case "TOGGLE_ADVANCED_OPTIONS":
       return { ...state, showAdvancedOptions: !state.showAdvancedOptions };
+    case "SET_STARTING_DATE":
+      return { ...state, startingDate: action.payload };
+    case "SET_ENDING_DATE":
+      return { ...state, endingDate: action.payload };
     case "SET_CATEGORIES":
       return { ...state, categoriesList: action.payload };
     case "SET_CATEGORY":

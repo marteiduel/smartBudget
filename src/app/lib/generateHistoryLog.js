@@ -1,6 +1,6 @@
-async function getHistoryLog() {
+async function generateHistoryLog() {
   const res = await fetch(
-    "https://marteiduel.com/smartbudget/get_history_log.php",
+    "https://marteiduel.com/smartbudget/generate_history_log.php",
     { cache: "no-cache" }
   );
   if (!res.ok) throw new Error("Error fetching History Log");
@@ -8,4 +8,4 @@ async function getHistoryLog() {
   return res.json();
 }
 
-export default getHistoryLog;
+export default generateHistoryLog;

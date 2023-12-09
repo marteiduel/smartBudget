@@ -1,3 +1,4 @@
+"use client";
 export const initialState = {
   loading: false,
   showAdvancedOptions: false,

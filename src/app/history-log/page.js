@@ -9,37 +9,27 @@ import styles from "./styles.module.css";
 
 export default function HistoryLog() {
   const [state, dispatch] = useReducer(reducer, initialState);
-  console.log("state", state);
-  const [showAdvancedOptions, setShowAdvancedOptions] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (startingDate === "") {
+    if (state.startingDate === "") {
       alert("Please enter a starting date");
       return;
     }
-    if (endingDate === "") {
+    if (state.endingDate === "") {
       alert("Please enter an ending date");
       return;
     }
-    console.log("submit");
-    console.log("startingDate", startingDate);
-    console.log("endingDate", endingDate);
-    console.log("category", category);
-    console.log("minAmount", minAmount);
-    console.log("maxAmount", maxAmount);
-    console.log("keyword", keyword);
   };
 
   const toggleAdvancedOptions = (e) => {
     e.preventDefault();
     dispatch({ type: "TOGGLE_ADVANCED_OPTIONS" });
-    if (!state.showAdvancedOptions) {
+    if (state.showAdvancedOptions === false) {
       const categories = getCategories();
       categories
         .then((data) => {
           dispatch({ type: "SET_CATEGORIES", payload: data });
-          console.log("categories", data);
         })
         .catch((error) => console.error("Error fetching categories:", error));
     }
@@ -83,7 +73,7 @@ export default function HistoryLog() {
           <button
             onClick={(e) => toggleAdvancedOptions(e)}
             className={
-              showAdvancedOptions
+              state.showAdvancedOptions
                 ? styles.advanceButtonActive
                 : styles.advanceButtonInactive
             }
@@ -91,7 +81,7 @@ export default function HistoryLog() {
             Advanced Options
           </button>
 
-          {showAdvancedOptions && (
+          {state.showAdvancedOptions && (
             <div>
               <div className={styles.marginTop}>
                 <label className={styles.categoryTitle}>Category</label>

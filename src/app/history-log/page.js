@@ -63,7 +63,9 @@ export default function HistoryLog() {
           Back
         </Link>
         <h1 className="pageTitle">History Log</h1>
-        <div onClick={resetForm}>Reset</div>
+        <div className="reset" onClick={resetForm}>
+          Reset
+        </div>
       </header>
 
       <div className="backBox">

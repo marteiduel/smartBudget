@@ -40,7 +40,7 @@ export default function HistoryLog() {
     generateHistoryLog(
       state.startingDate,
       state.endingDate,
-      state.category,
+      state.category_id,
       state.minAmount,
       state.maxAmount,
       state.keyword
@@ -109,7 +109,7 @@ export default function HistoryLog() {
                 <div className={styles.centerAmount}>
                   <select
                     className="whiteBackgroundSquare"
-                    value={state.category}
+                    value={state.category_id}
                     onChange={(e) =>
                       dispatch({
                         type: "SET_CATEGORY",

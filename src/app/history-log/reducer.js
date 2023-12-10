@@ -5,7 +5,7 @@ export const initialState = {
   categoriesList: [],
   startingDate: "",
   endingDate: "",
-  category: "",
+  category_id: "",
   minAmount: "",
   maxAmount: "",
   keyword: "",
@@ -25,7 +25,7 @@ export function reducer(state, action) {
     case "SET_CATEGORIES":
       return { ...state, categoriesList: action.payload };
     case "SET_CATEGORY":
-      return { ...state, category: action.payload };
+      return { ...state, category_id: action.payload };
     case "SET_MIN_AMOUNT":
       return { ...state, minAmount: action.payload };
     case "SET_MAX_AMOUNT":

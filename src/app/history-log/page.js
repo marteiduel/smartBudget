@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-// import generateHistoryLog from "../lib/generateHistoryLog";
+import generateHistoryLog from "../lib/generateHistoryLog";
 import { useState, useReducer } from "react";
 import { getCategories } from "../lib/categories";
 import { initialState, reducer } from "./reducer";
@@ -9,18 +9,6 @@ import styles from "./styles.module.css";
 
 export default function HistoryLog() {
   const [state, dispatch] = useReducer(reducer, initialState);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (state.startingDate === "") {
-      alert("Please enter a starting date");
-      return;
-    }
-    if (state.endingDate === "") {
-      alert("Please enter an ending date");
-      return;
-    }
-  };
 
   const toggleAdvancedOptions = (e) => {
     e.preventDefault();
@@ -35,6 +23,39 @@ export default function HistoryLog() {
     }
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (state.startingDate === "") {
+      alert("Please enter a starting date");
+      return;
+    }
+    if (state.endingDate === "") {
+      alert("Please enter an ending date");
+      return;
+    }
+    if (state.startingDate > state.endingDate) {
+      alert("Starting date cannot be after ending date");
+      return;
+    }
+    generateHistoryLog(
+      state.startingDate,
+      state.endingDate,
+      state.category,
+      state.minAmount,
+      state.maxAmount,
+      state.keyword
+    );
+  };
+
+  const resetForm = () => {
+    dispatch({ type: "SET_STARTING_DATE", payload: "" });
+    dispatch({ type: "SET_ENDING_DATE", payload: "" });
+    dispatch({ type: "SET_CATEGORY", payload: "" });
+    dispatch({ type: "SET_MIN_AMOUNT", payload: "" });
+    dispatch({ type: "SET_MAX_AMOUNT", payload: "" });
+    dispatch({ type: "SET_KEYWORD", payload: "" });
+  };
+
   return (
     <>
       <header className="header">
@@ -42,7 +63,7 @@ export default function HistoryLog() {
           Back
         </Link>
         <h1 className="pageTitle">History Log</h1>
-        <div>Reset</div>
+        <div onClick={resetForm}>Reset</div>
       </header>
 
       <div className="backBox">

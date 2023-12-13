@@ -7,7 +7,7 @@ async function generateHistoryLog(
   keyword
 ) {
   const res = await fetch(
-    `https://marteiduel.com/smartbudget/get_history_log.php?startingDate=${startingDate}&endingDate=${endingDate}&category_id=${category_id}&minAmount=${minAmount}&maxAmount=${maxAmount}&keyword=${keyword}&user_id=${1}`,
+    `https://marteiduel.com/smartbudget/generate_history_log.php?startingDate=${startingDate}&endingDate=${endingDate}&category_id=${category_id}&minAmount=${minAmount}&maxAmount=${maxAmount}&keyword=${keyword}&user_id=${1}`,
     { method: "GET" }
   );
 

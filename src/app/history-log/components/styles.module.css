@@ -1,63 +1,13 @@
-.popUp {
+.backBox {
   display: flex;
-  justify-content: space-around;
-  align-items: center;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
   flex-direction: column;
+  background-color: #cccccc;
   margin: 1rem;
   padding: 1rem;
   border-radius: 10px;
-  height: 50vh;
+  height: 87vh;
   max-width: 100% !important;
-  width: 100%;
   overflow-x: hidden !important;
-}
-
-.deleteEdit {
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  width: 100%;
-}
-
-.deleteIcon {
-  cursor: pointer;
-  transition: all 0.3s ease-in-out;
-  display: flex;
-  justify-content: space-evenly;
-  width: 100px;
-  height: 42px;
-  align-items: center;
-  color: white;
-  border-radius: 10px;
-  background-color: #ff5e5e;
-}
-
-.editIcon {
-  cursor: pointer;
-  transition: all 0.3s ease-in-out;
-  display: flex;
-  justify-content: space-evenly;
-  width: 100px;
-  height: 42px;
-  align-items: center;
-  color: white;
-  border-radius: 10px;
-  background-color: #767676;
-}
-
-.overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
-
-.popUp {
-  background: white;
 }

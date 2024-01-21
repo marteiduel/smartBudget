@@ -4,6 +4,7 @@ import { getCategories } from "../lib/categories";
 import AddCategoryPopUp from "./components/AddCategory";
 import EditCategoryPopUp from "./components/EditCategory";
 import { useState, useEffect } from "react";
+import { getTotalBudget } from "../lib/totalBudget";
 
 export default function Categories() {
   const [loading, isLoading] = useState(true);
@@ -11,12 +12,19 @@ export default function Categories() {
   const [showEditCategoryModal, setShowEditCategoryModal] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [data, setData] = useState([]);
+  const [budgetTotal, setBudgetTotal] = useState(0);
 
   useEffect(() => {
     getCategories().then((data) => {
       setData(data);
       isLoading(false);
     });
+    async function getBudget(){
+      const res = await getTotalBudget();
+      const data = await res.total_budget
+      setBudgetTotal(data);
+    }
+    getBudget();
   }, []);
 
   const closePopout = (e) => {
@@ -38,6 +46,10 @@ export default function Categories() {
           Back
         </Link>
         <h1 className="pageTitle">Categories</h1>
+        <div className="reset" style={{display:"flex", flexDirection:"column", padding:"15px"}}>
+          <p className="text-center">Total</p>
+          <p className="text-center">${budgetTotal}</p>
+        </div>
       </header>
 
       <div className="backBox">

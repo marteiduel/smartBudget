@@ -1,5 +1,6 @@
 import "./globals.css";
 import { Inter } from "next/font/google";
+import { Provider, defaultTheme, darkTheme, Button } from "@adobe/react-spectrum";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -10,9 +11,15 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <link rel="manifest" href="/manifest.json" />
-      <body className={inter.className}>{children}</body>
+    <html>
+        <head>
+          <link rel="manifest" href="/manifest.json" />
+        </head>
+        <body className={inter.className} style={{height:"100vh"}}>
+          <Provider theme={defaultTheme} colorScheme="light" height="100vh">
+            {children}
+          </Provider>
+        </body>
     </html>
   );
 }

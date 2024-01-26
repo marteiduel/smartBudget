@@ -1,74 +1,28 @@
-import Image from "next/image";
+import { Button, Heading } from "@adobe/react-spectrum";
 import Link from "next/link";
 import styles from "./styles.module.css";
 
+const buttonsData = [
+  { href: "/add-expense", text: "Add Expense", isDisabled: false },
+  { href: "/add-income", text: "Add Income", isDisabled: true },
+  { href: "/review-budget", text: "Review Budget", isDisabled: false },
+  { href: "/categories", text: "Categories", isDisabled: false },
+  { href: "/history-log", text: "Log", isDisabled: false },
+];
+
 export default function Home() {
   return (
-    <main className="flex flex-col items-center justify-between">
+    <main className="flex flex-col items-center h-full">
       <header className="flex justify-center items-center text-4xl m-8">
-        <h1 className="font-medium">Smart Budget</h1>
+        <Heading level={1}>Smart Budget</Heading>
       </header>
-      <Link className={styles.mainButtons} href="/add-expense">
-        <div className={styles.innerButton}>
-          <p className={styles.innerButtonText}>Add Expense</p>
-          <Image
-            src="/assets/icons/add-expense.png"
-            className={styles.icons}
-            width={50}
-            height={50}
-            alt="Add Expense"
-          />
-        </div>
-      </Link>
-      {/* <Link className={styles.mainButtons} href="/add-income">
-        <div className={styles.innerButton}>
-          <p className={styles.innerButtonText}>Add Income</p>
-          <Image
-            src="/assets/icons/add-income.png"
-            className={styles.icons}
-            alt="Add Expense"
-            width={50}
-            height={50}
-          />
-        </div>
-      </Link> */}
-      <Link className={styles.mainButtons} href="/review-budget">
-        <div className={styles.innerButton}>
-          <p className={styles.innerButtonText}>Review Budget</p>
-          <Image
-            src="/assets/icons/review-budget.png"
-            className={styles.icons}
-            alt="Add Expense"
-            width={50}
-            height={50}
-          />
-        </div>
-      </Link>
-      <Link className={styles.mainButtons} href="/categories">
-        <div className={styles.innerButton}>
-          <p className={styles.innerButtonText}>Categories</p>
-          <Image
-            src="/assets/icons/categories.png"
-            className={styles.icons}
-            alt="Add Expense"
-            width={50}
-            height={50}
-          />
-        </div>
-      </Link>
-
-      <Link className={styles.mainButtons} href="/history-log">
-        <div className={styles.innerButton}>
-          <p className={styles.innerButtonText}>Log</p>
-          <Image
-            src="/assets/icons/history-log.png"
-            className={styles.icons}
-            alt="Add Expense"
-            width={50}
-            height={50}
-          />
-        </div>
-      </Link>
+      {buttonsData.map(({ href, text, isDisabled }) => (
+        <Link key={href} href={href} style={{cursor:"pointer"}}>
+          <Button  width={180} height={45} marginBottom={15} isDisabled={isDisabled}>
+            <p className={styles.innerButtonText}>{text}</p>
+          </Button>
+        </Link>
+      ))}
     </main>
   );
 }

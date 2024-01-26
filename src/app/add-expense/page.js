@@ -3,6 +3,7 @@ import Link from "next/link";
 import styles from "./styles.module.css";
 import React, { useState, useEffect } from "react";
 import { getCategories } from "../lib/categories";
+import { todaysDate, handleAmountInput } from "../lib/addExpenseFunctions";
 
 export default function AddExpense() {
   const [categories, setCategories] = useState([]);
@@ -13,7 +14,7 @@ export default function AddExpense() {
   const [selectKey, setSelectKey] = useState(0);
 
   useEffect(() => {
-    todaysDate();
+    setToday(todaysDate());
     const data = getCategories();
     data
       .then((data) => {
@@ -52,26 +53,6 @@ export default function AddExpense() {
       console.error("Error adding expense:", error);
     }
   }
-
-  function todaysDate() {
-    const date = new Date();
-    const year = date.getFullYear();
-    let month = date.getMonth() + 1;
-    let day = date.getDate();
-
-    month = month < 10 ? "0" + month : month;
-    day = day < 10 ? "0" + day : day;
-
-    const formattedDate = `${year}-${month}-${day}`;
-    setToday(formattedDate);
-  }
-
-  const handleAmountInput = (e) => {
-    const value = e.target.value;
-    if (/^[0-9]*\.?[0-9]*$/.test(value)) {
-      setAmount(value);
-    }
-  };
 
   return (
     <>
@@ -119,10 +100,10 @@ export default function AddExpense() {
             placeholder="Enter Amount"
             required
             pattern="[0-9]*\.?[0-9]+"
-            onInput={(e) => handleAmountInput(e)}
+            onInput={(e) => handleAmountInput(e.target.value, setAmount)}
             value={amount}
             id="amount"
-          />
+        />
 
           <div className={styles.labels}>Expense Date</div>
           <input

@@ -4,7 +4,7 @@ import generateHistoryLog from "../lib/generateHistoryLog";
 import { useReducer } from "react";
 import { getCategories } from "../lib/categories";
 import { initialState, reducer } from "./reducer";
-import { getTodayDate } from "../lib/todaysDate";
+import { getTodayDate } from "../lib/getTodaysDate";
 import ShowReport from "./components/ShowReport";
 import styles from "./styles.module.css";
 

@@ -4,11 +4,6 @@ import { Provider, defaultTheme, darkTheme, Button } from "@adobe/react-spectrum
 
 const inter = Inter({ subsets: ["latin"] });
 
-export const metadata = {
-  title: "Smart Budget",
-  description: "PWA for managing your budget",
-};
-
 export default function RootLayout({ children }) {
   return (
     <html>

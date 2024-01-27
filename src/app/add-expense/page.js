@@ -4,8 +4,8 @@ import styles from "./styles.module.css";
 import React, { useState, useEffect } from "react";
 import { getCategories } from "../lib/categories";
 import { todaysDate, handleAmountInput } from "../lib/addExpenseFunctions";
-import { ComboBox, Form, Item, TextField, View } from "@adobe/react-spectrum";
-import { Combo } from "next/font/google";
+import { Button, ComboBox, DatePicker, Form, Item, TextArea, TextField, View } from "@adobe/react-spectrum";
+import { parseDate } from "@internationalized/date";
 
 export default function AddExpense() {
   const [categories, setCategories] = useState([]);
@@ -25,8 +25,14 @@ export default function AddExpense() {
       .catch((error) => console.error("Error fetching categories:", error));
   }, []);
 
-  async function addExpense(e) {
-    e.preventDefault();
+  const addExpense = async (e)=> {
+    if (e && typeof e.preventDefault === 'function') {
+      e.preventDefault();
+    }
+    if (!selectedCategory || !amount || !today || !description) {
+      alert('Please fill out all fields.');
+      return;
+    }
     try {
       const response = await fetch(
         "https://marteiduel.com/smartbudget/transaction.php",
@@ -38,7 +44,7 @@ export default function AddExpense() {
           body: JSON.stringify({
             categoryId: selectedCategory,
             amount: amount,
-            date: today,
+            date: `${today.year}-${today.month}-${today.day}`,
             description: description,
             userId: 1,
           }),
@@ -70,16 +76,14 @@ export default function AddExpense() {
         </Link>
         <h1 className="pageTitle">Add Expense</h1>
       </header>
-      <Form>
-        <ComboBox>
-          {categories.map((category) => {
-            return (
-              <Item key={category.categoryId} value={category.categoryId}>
-                {category.category_name}
-              </Item>
-            );
-          })}
-        </ComboBox>
+      <Form validationBehavior="native" isRequired>
+      <ComboBox label="Select Category" onSelectionChange={(value) => setSelectedCategory(value)}>
+  {categories.map((category) => (
+    <Item key={category.categoryId} value={category.categoryId}>
+      {category.category_name}
+    </Item>
+  ))}
+</ComboBox>
         <TextField 
           label="Amount"
           placeholder="Enter Amount"
@@ -87,75 +91,15 @@ export default function AddExpense() {
           onInput={(e) => handleAmountInput(e.target.value, setAmount)}
           value={amount}
           id="amount"
+          isRequired
         />
+
+        <DatePicker label="Expense Date" onChange={setToday} defaultValue={parseDate(todaysDate())}/>
+        
+        <TextArea label="Expense Description" placeholder="Enter Description" onChange={setDescription} value={description} />
+
+        <Button variant="cta" onPress={addExpense}>Submit</Button>
       </Form>
-      <div className="backBox">
-        <form
-          className={styles.form}
-          onSubmit={(e) => {
-            addExpense(e);
-          }}
-        >
-          <div className={styles.labels}>Select Category</div>
-          {categories ? (
-            <select
-              key={selectKey}
-              className="whiteBackgroundSquare"
-              onChange={(e) => setSelectedCategory(e.target.value)}
-            >
-              <option>Select a Category</option>
-              {categories.map((category) => {
-                return (
-                  <option
-                    key={category.categoryId}
-                    value={category.categoryId}
-                    required
-                  >
-                    {category.category_name}
-                  </option>
-                );
-              })}
-            </select>
-          ) : (
-            "Loading..."
-          )}
-
-          <div className={styles.labels}>Amount</div>
-          <input
-            className="whiteBackgroundSquare"
-            type="text"
-            placeholder="Enter Amount"
-            required
-            pattern="[0-9]*\.?[0-9]+"
-            onInput={(e) => handleAmountInput(e.target.value, setAmount)}
-            value={amount}
-            id="amount"
-        />
-
-          <div className={styles.labels}>Expense Date</div>
-          <input
-            className="whiteBackgroundSquare"
-            type="date"
-            onChange={(e) => setToday(e.target.value)}
-            value={today}
-          />
-
-          <div className={styles.labels}>Expense Description</div>
-          <textarea
-            className={styles.description}
-            type="textarea"
-            placeholder="Enter Description"
-            onChange={(e) => setDescription(e.target.value)}
-            value={description}
-          />
-
-          <input
-            className=" whiteBackgroundSquare"
-            type="submit"
-            value="Submit"
-          />
-        </form>
-      </div>
       </View>
     </>
   );

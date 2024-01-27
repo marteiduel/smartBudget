@@ -18,12 +18,12 @@ html {
   padding: 25px;
   border-radius: 10px;
   margin-bottom: 20px;
-  border: 1px solid #e3e3e3;
   cursor: pointer;
   transition: all 0.3s ease-in-out;
   top: 0%;
   left: 0%;
   position: absolute;
+  font-weight:400;
 }
 
 .reset {

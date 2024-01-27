@@ -4,7 +4,7 @@ import styles from "./styles.module.css";
 import React, { useState, useEffect } from "react";
 import { getCategories } from "../lib/categories";
 import { todaysDate, handleAmountInput } from "../lib/addExpenseFunctions";
-import { Button, ComboBox, DatePicker, Form, Item, TextArea, TextField, View } from "@adobe/react-spectrum";
+import { Button, Picker, DatePicker, Form, Item, TextArea, TextField, View } from "@adobe/react-spectrum";
 import { parseDate } from "@internationalized/date";
 
 export default function AddExpense() {
@@ -77,13 +77,13 @@ export default function AddExpense() {
         <h1 className="pageTitle">Add Expense</h1>
       </header>
       <Form validationBehavior="native" isRequired>
-      <ComboBox label="Select Category" onSelectionChange={(value) => setSelectedCategory(value)}>
-  {categories.map((category) => (
-    <Item key={category.categoryId} value={category.categoryId}>
-      {category.category_name}
-    </Item>
-  ))}
-</ComboBox>
+      <Picker label="Select Category" onSelectionChange={(value) => setSelectedCategory(value)}>
+        {categories.map((category) => (
+          <Item key={category.categoryId} value={category.categoryId}>
+            {category.category_name}
+          </Item>
+        ))}
+      </Picker>
         <TextField 
           label="Amount"
           placeholder="Enter Amount"

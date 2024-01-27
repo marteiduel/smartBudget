@@ -4,6 +4,8 @@ import styles from "./styles.module.css";
 import React, { useState, useEffect } from "react";
 import { getCategories } from "../lib/categories";
 import { todaysDate, handleAmountInput } from "../lib/addExpenseFunctions";
+import { ComboBox, Form, Item, TextField, View } from "@adobe/react-spectrum";
+import { Combo } from "next/font/google";
 
 export default function AddExpense() {
   const [categories, setCategories] = useState([]);
@@ -56,12 +58,37 @@ export default function AddExpense() {
 
   return (
     <>
+      <View                 
+        borderWidth="thin"
+        borderColor="light"
+        borderRadius="large"
+        padding="size-250"
+        backgroundColor="gray-50">
       <header className="header">
         <Link className="back" href="/">
           Back
         </Link>
         <h1 className="pageTitle">Add Expense</h1>
       </header>
+      <Form>
+        <ComboBox>
+          {categories.map((category) => {
+            return (
+              <Item key={category.categoryId} value={category.categoryId}>
+                {category.category_name}
+              </Item>
+            );
+          })}
+        </ComboBox>
+        <TextField 
+          label="Amount"
+          placeholder="Enter Amount"
+          pattern="[0-9]*\.?[0-9]+"
+          onInput={(e) => handleAmountInput(e.target.value, setAmount)}
+          value={amount}
+          id="amount"
+        />
+      </Form>
       <div className="backBox">
         <form
           className={styles.form}
@@ -129,6 +156,7 @@ export default function AddExpense() {
           />
         </form>
       </div>
+      </View>
     </>
   );
 }

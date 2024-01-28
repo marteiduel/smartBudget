@@ -1,6 +1,5 @@
 "use client";
 import Link from "next/link";
-import styles from "./styles.module.css";
 import React, { useState, useEffect } from "react";
 import { getCategories } from "../lib/categories";
 import { todaysDate, handleAmountInput } from "../lib/addExpenseFunctions";
@@ -10,13 +9,12 @@ import { parseDate } from "@internationalized/date";
 export default function AddExpense() {
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
-  const [today, setToday] = useState("");
+  const [date, setDate] = useState("");
   const [amount, setAmount] = useState("");
   const [description, setDescription] = useState("");
-  const [selectKey, setSelectKey] = useState(0);
 
   useEffect(() => {
-    setToday(todaysDate());
+    setDate(todaysDate());
     const data = getCategories();
     data
       .then((data) => {
@@ -29,7 +27,7 @@ export default function AddExpense() {
     if (e && typeof e.preventDefault === 'function') {
       e.preventDefault();
     }
-    if (!selectedCategory || !amount || !today || !description) {
+    if (!selectedCategory || !amount || !date || !description) {
       alert('Please fill out all fields.');
       return;
     }
@@ -44,7 +42,7 @@ export default function AddExpense() {
           body: JSON.stringify({
             categoryId: selectedCategory,
             amount: amount,
-            date: `${today.year}-${today.month}-${today.day}`,
+            date: date,
             description: description,
             userId: 1,
           }),
@@ -55,11 +53,14 @@ export default function AddExpense() {
         setAmount("");
         setDescription("");
         setSelectedCategory("");
-        setSelectKey((prevKey) => prevKey + 1);
       }
     } catch (error) {
       console.error("Error adding expense:", error);
     }
+  }
+
+  const setDay = (date) => {
+    setDate(`${date.year}-${date.month}-${date.day}`);
   }
 
   return (
@@ -67,9 +68,9 @@ export default function AddExpense() {
       <View                 
         borderWidth="thin"
         borderColor="light"
-        borderRadius="large"
         padding="size-250"
-        backgroundColor="gray-50">
+        backgroundColor="gray-50"
+        height={"100vh"}>
       <header className="header">
         <Link className="back" href="/">
           Back
@@ -94,7 +95,7 @@ export default function AddExpense() {
           isRequired
         />
 
-        <DatePicker label="Expense Date" onChange={setToday} defaultValue={parseDate(todaysDate())}/>
+        <DatePicker label="Expense Date" onChange={setDay} defaultValue={parseDate(todaysDate())}/>
         
         <TextArea label="Expense Description" placeholder="Enter Description" onChange={setDescription} value={description} />
 

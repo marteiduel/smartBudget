@@ -58,36 +58,6 @@ export default function ReviewBudget() {
           )}
         </TableBody>
       </TableView>
-      {/* <div className={`${styles.backBox} backBox`}>
-        <div className="categoryItem">
-          <div className="spaceBetween">
-            <p>Category</p>
-            <p className="pr-4">Left</p>
-          </div>
-        </div>
-        {data.map((category) => {
-          return (
-            <Link
-              href={`review-budget/${category.category_id}`}
-              key={category.category_id}
-              className="categoryItem"
-            >
-              <div className="spaceBetween">
-                <div>{category.category_name}</div>
-                <div
-                  className={
-                    category.remaining_budget.includes("-")
-                      ? styles.negativeBalance
-                      : styles.positiveBalance
-                  }
-                >
-                  <p>${category.remaining_budget}</p>
-                </div>
-              </div>
-            </Link>
-          );
-        })}
-      </div> */}
     </View>
   );
 }

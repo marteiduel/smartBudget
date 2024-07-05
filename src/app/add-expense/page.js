@@ -9,12 +9,11 @@ import { parseDate } from "@internationalized/date";
 export default function AddExpense() {
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
-  const [date, setDate] = useState("");
+  const [date, setDate] = useState(todaysDate());
   const [amount, setAmount] = useState("");
   const [description, setDescription] = useState("");
 
   useEffect(() => {
-    setDate(todaysDate());
     const data = getCategories();
     data
       .then((data) => {
@@ -53,14 +52,19 @@ export default function AddExpense() {
         setAmount("");
         setDescription("");
         setSelectedCategory("");
+        setDate(todaysDate());
       }
     } catch (error) {
       console.error("Error adding expense:", error);
     }
   }
 
+  const padZero = (number) => {
+    return number.toString().padStart(2, '0');
+  }
+
   const setDay = (date) => {
-    setDate(`${date.year}-${date.month}-${date.day}`);
+    setDate(`${date.year}-${padZero(date.month)}-${padZero(date.day)}`);
   }
 
   return (
@@ -78,7 +82,10 @@ export default function AddExpense() {
         <h1 className="pageTitle">Add Expense</h1>
       </header>
       <Form validationBehavior="native" isRequired>
-      <Picker label="Select Category" onSelectionChange={(value) => setSelectedCategory(value)}>
+      <Picker 
+        label="Select Category" 
+        selectedKey={selectedCategory}
+        onSelectionChange={(value) => setSelectedCategory(value)}>
         {categories.map((category) => (
           <Item key={category.categoryId} value={category.categoryId}>
             {category.category_name}
@@ -95,9 +102,18 @@ export default function AddExpense() {
           isRequired
         />
 
-        <DatePicker label="Expense Date" onChange={setDay} defaultValue={parseDate(todaysDate())}/>
+        <DatePicker 
+          label="Expense Date" 
+          onChange={setDay} 
+          value={parseDate(date)}
+        />
         
-        <TextArea label="Expense Description" placeholder="Enter Description" onChange={setDescription} value={description} />
+        <TextArea 
+          label="Expense Description" 
+          placeholder="Enter Description" 
+          onChange={(e) => setDescription(e)} 
+          value={description} 
+        />
 
         <Button variant="cta" onPress={addExpense}>Submit</Button>
       </Form>

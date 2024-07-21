@@ -4,7 +4,7 @@ import styles from "./styles.module.css";
 
 const buttonsData = [
   { href: "/add-expense", text: "Add Expense", isDisabled: false },
-  { href: "/add-income", text: "Add Income", isDisabled: true },
+  { href: "/add-income", text: "Add Income", isDisabled: false },
   { href: "/review-budget", text: "Review Budget", isDisabled: false },
   { href: "/categories", text: "Categories", isDisabled: false },
   { href: "/history-log", text: "Log", isDisabled: false },

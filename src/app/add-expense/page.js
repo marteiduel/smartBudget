@@ -2,7 +2,7 @@
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import { getCategories } from "../lib/categories";
-import { todaysDate, handleAmountInput } from "../lib/addExpenseFunctions";
+import { todaysDate, handleAmountInput } from "../lib/transactionfunctions";
 import { Button, Picker, DatePicker, Form, Item, TextArea, TextField, View } from "@adobe/react-spectrum";
 import { parseDate } from "@internationalized/date";
 

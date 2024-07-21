@@ -1,0 +1,117 @@
+.popUp {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
+  margin: 1rem;
+  padding: 1rem;
+  border-radius: 10px;
+  height: 60vh;
+  max-width: 100% !important;
+  width: 100%;
+  overflow-x: hidden !important;
+  background: white;
+}
+.deletePopUp{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
+  margin: 1rem;
+  padding: 1rem;
+  border-radius: 10px;
+  height: 30vh;
+  max-width: 100% !important;
+  width: 100%;
+  overflow-x: hidden !important;
+  background: white;
+
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.addCategoryTextTitle {
+  font-size: 1.3rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.itemsCenter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+}
+
+.form label {
+  font-size: 1rem;
+  font-weight: 550;
+  text-align: center;
+  margin: .5rem;
+}
+
+.form input {
+  width: 80%;
+  height: 2.5rem;
+  border-radius: 10px;
+  border: 1px solid #cccccc;
+  padding: 0.5rem;
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.form textarea {
+  width: 80%;
+  height: 4rem;
+  border-radius: 10px;
+  border: 1px solid #cccccc;
+  padding: 0.5rem;
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.button {
+  margin-top: 1rem;
+  width: 50%;
+  border-radius: 10px;
+  font-size: 1.2rem;
+  height: 3rem;
+  font-weight: 500;
+  background-color: #ebebeb;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.deleteButton {
+  margin-top: 1.6rem;
+  width: 50%;
+  border-radius: 10px;
+  font-size: 1.2rem;
+  height: 2rem;
+  font-weight: 500;
+  background-color: #e83a3a;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  color: white;
+}

@@ -8,6 +8,7 @@ const buttonsData = [
   { href: "/review-budget", text: "Review Budget", isDisabled: false },
   { href: "/categories", text: "Categories", isDisabled: false },
   { href: "/history-log", text: "Log", isDisabled: false },
+  { href: "/savings", text: "Savings", isDisabled: false },
 ];
 
 export default function Home() {

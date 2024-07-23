@@ -4,26 +4,35 @@ import Link from "next/link";
 import styles from "./styles.module.css";
 import { View, Cell, Column, Row, TableView, TableBody, TableHeader, Flex } from '@adobe/react-spectrum';
 import { Options } from './options'; 
+import { getCategories } from "../lib/categories";
 
 export default function ReviewBudget() {
   const [data, setData] = useState([]);
   const [totalAmount, setTotalAmount] = useState(0);
+  const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function getData() {
       const res = await fetch("https://marteiduel.com/smartbudget/savings.php");
       const data = await res.json();
       setData(data);
-
+      
       // Calculate total amount after data is fetched
       let total = 0;
       data.forEach(item => {
         total += parseFloat(item.savings);
       });
       setTotalAmount(total);
+
+      const categories = await getCategories();
+      setCategories(categories);
+      setLoading(false);
     }
     getData();
   }, []);
+
+  console.log(categories, 'categoriesOutside');
 
   return (
     <View 
@@ -56,7 +65,7 @@ export default function ReviewBudget() {
               <Cell>
                 <Flex justifyContent="space-between">
                   <div>{item.savings}</div>
-                  <Options category={item} /> 
+                  {!loading && <Options category={item} categories={categories} />} 
                 </Flex>
               </Cell>
             </Row>

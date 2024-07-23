@@ -1,13 +1,14 @@
-import React from 'react';
-import { ActionButton, DialogContainer, AlertDialog, Heading, Divider, Content, Form, TextField, ButtonGroup, Button, Dialog, MenuTrigger, Menu, Item, Text } from '@adobe/react-spectrum';
+import React, { useState } from 'react';
+import { ActionButton, DialogContainer, Heading, Divider, Content, Form, TextField, ButtonGroup, Button, Dialog, MenuTrigger, Menu, Item, Text, ComboBox } from '@adobe/react-spectrum';
 import More from '@spectrum-icons/workflow/More';
 import { useDialogContainer } from '@adobe/react-spectrum';
 
-export function Options({ category }) {
-  const [dialog, setDialog] = React.useState(null);
+export function Options({ category, categories }) {
+  const [dialog, setDialog] = useState(null);
 
   const categoryName = category.category_name;
   const categoryAmount = category.savings;
+  console.log(categories, 'categories in OptionsPASO1');
 
   return (
     <>
@@ -23,7 +24,7 @@ export function Options({ category }) {
       <DialogContainer onDismiss={() => setDialog(null)}>
         {dialog === 'edit' && <EditDialog categoryName={categoryName} categoryAmount={categoryAmount} />}
         {dialog === 'transfer' && (
-          <TransferDialog categoryName={categoryName} categoryAmount={categoryAmount} />
+          <TransferDialog categoryName={categoryName} categoryAmount={categoryAmount} categories={categories} />
         )}
       </DialogContainer>
     </>
@@ -34,7 +35,7 @@ function EditDialog({ categoryName, categoryAmount }) {
   const dialog = useDialogContainer();
 
   return (
-    <Dialog height={'static-size-4600'}>
+    <Dialog height="static-size-4600">
       <Heading>Edit - {categoryName}</Heading>
       <Divider />
       <Content>
@@ -50,11 +51,13 @@ function EditDialog({ categoryName, categoryAmount }) {
       </ButtonGroup>
     </Dialog>
   );
-  
 }
 
-function TransferDialog({ categoryName, categoryAmount }) {
+function TransferDialog({ categoryName, categoryAmount, categories }) {
   const dialog = useDialogContainer();
+  const [categoryId, setCategoryId] = useState(null);
+
+  console.log(categories, 'categories in Transfer');
 
   return (
     <Dialog height="calc(size-6000 - size-700)">
@@ -63,7 +66,14 @@ function TransferDialog({ categoryName, categoryAmount }) {
       <Content>
         <Form labelPosition="side" width="100%">
           <Text>Current Amount: {categoryAmount}</Text>
-          <TextField label="Category Destination" />
+          <ComboBox
+            label="Category Destination"
+            defaultItems={categories}
+            selectedKey={categoryId}
+            onSelectionChange={selected => setCategoryId(selected)}
+          >
+            {item => <Item key={item.categoryId}>{item.category_name}</Item>}
+          </ComboBox>
           <TextField autoFocus label="Amount" />
           <TextField autoFocus label="Description" />
         </Form>
@@ -74,5 +84,4 @@ function TransferDialog({ categoryName, categoryAmount }) {
       </ButtonGroup>
     </Dialog>
   );
-  
 }

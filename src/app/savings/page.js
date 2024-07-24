@@ -1,6 +1,6 @@
 "use client";
-import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import { useState, useEffect } from "react";
 import styles from "./styles.module.css";
 import { View, Cell, Column, Row, TableView, TableBody, TableHeader, Flex } from '@adobe/react-spectrum';
 import { Options } from './options'; 
@@ -40,8 +40,7 @@ export default function ReviewBudget() {
       padding="size-100"
       borderRadius="medium"
       borderWidth="thin"
-      borderColor="blue-500"
-    >
+      borderColor="blue-500">
       <header className="header">
         <Link className="back" href="/">
           Back

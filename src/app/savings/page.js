@@ -46,7 +46,7 @@ export default function ReviewBudget() {
         <Link className="back" href="/">
           Back
         </Link>
-        <h1 className="pageTitle">Review Budget</h1>
+        <h1 className="pageTitle">Savings</h1>
         <div className="total-corner" style={{display:"flex", flexDirection:"column", padding:"15px"}}>
           <p className="text-center">Total</p>
           <p className="text-center">{totalAmount}</p>

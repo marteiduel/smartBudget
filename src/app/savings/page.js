@@ -32,8 +32,6 @@ export default function ReviewBudget() {
     getData();
   }, []);
 
-  console.log(categories, 'categoriesOutside');
-
   return (
     <View 
       backgroundColor="gray-50"

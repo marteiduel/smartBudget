@@ -13,22 +13,27 @@ export default function ReviewBudget() {
   const [loading, setLoading] = useState(true);
 
   const fetchData = async () => {
-    const res = await fetch("https://marteiduel.com/smartbudget/savings.php", {
-      method: 'GET',
-    });
-    const data = await res.json();
-    setData(data);
-    
-    // Calculate total amount after data is fetched
-    let total = 0;
-    data.forEach(item => {
-      total += parseFloat(item.savings);
-    });
-    setTotalAmount(total);
+    try {
+      const res = await fetch("https://marteiduel.com/smartbudget/savings.php", {
+        method: 'GET',
+      });
+      if (!res.ok) throw new Error('Network response was not ok');
+      const data = await res.json();
+      setData(data);
+      
+      // Calculate total amount after data is fetched
+      let total = 0;
+      data.forEach(item => {
+        total += parseFloat(item.savings);
+      });
+      setTotalAmount(total);
 
-    const categories = await getCategories();
-    setCategories(categories);
-    setLoading(false);
+      const categories = await getCategories();
+      setCategories(categories);
+      setLoading(false);
+    } catch (error) {
+      console.error('Failed to fetch data:', error);
+    }
   };
 
   useEffect(() => {
@@ -65,7 +70,7 @@ export default function ReviewBudget() {
               <Cell>
                 <Flex justifyContent="space-between">
                   <div>{item.savings}</div>
-                  {!loading && <Options category={item} categories={categories} onActionComplete={fetchData} />} 
+                  {loading ? <span>Loading...</span> : <Options category={item} categories={categories} onActionComplete={fetchData} />}
                 </Flex>
               </Cell>
             </Row>

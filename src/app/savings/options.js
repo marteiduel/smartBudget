@@ -180,7 +180,7 @@ function TransferDialog({ selectedCategoryName, selectedCategoryAmount, selected
         <Form labelPosition="side" width="100%">
           <Text>Amount on Selected Category: {selectedCategoryAmount}</Text>
           <br />
-          <Text>Amount on Destination Category: {destinationCategoryInformation.savings}</Text>
+          <Text>Amount on Destination Category: {destinationCategoryInformation ? destinationCategoryInformation.savings : 0}</Text>
           <ComboBox
             label="Category Destination"
             defaultItems={categories}

@@ -12,6 +12,12 @@ export default function ReviewBudget() {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  // Test Fetch to Verify API Connectivity
+  fetch("https://marteiduel.com/smartbudget/savings.php")
+    .then(response => response.json())
+    .then(data => console.log("Fetched Data:", data))
+    .catch(error => console.error("Fetch Error:", error));
+
   const fetchData = async () => {
     try {
       console.log("Fetching data...");
@@ -70,10 +76,10 @@ export default function ReviewBudget() {
             <Row key={item.categoryId}>
               <Cell>{item.category_name}</Cell>
               <Cell>
-              <Flex justifyContent="space-between">
-  <div>{item.savings}</div>
-  {loading ? <span>Loading...</span> : <button>Test Button</button>}
-</Flex>
+                <Flex justifyContent="space-between">
+                  <div>{item.savings}</div>
+                  {loading ? <span>Loading...</span> : <Options category={item} categories={categories} onActionComplete={fetchData} />}
+                </Flex>
               </Cell>
             </Row>
           )}

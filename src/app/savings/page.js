@@ -14,21 +14,23 @@ export default function ReviewBudget() {
 
   const fetchData = async () => {
     try {
+      console.log("Fetching data...");
       const res = await fetch("https://marteiduel.com/smartbudget/savings.php", {
         method: 'GET',
       });
       if (!res.ok) throw new Error('Network response was not ok');
       const data = await res.json();
+      console.log("Data fetched:", data);
       setData(data);
-      
-      // Calculate total amount after data is fetched
+  
       let total = 0;
       data.forEach(item => {
         total += parseFloat(item.savings);
       });
       setTotalAmount(total);
-
+  
       const categories = await getCategories();
+      console.log("Categories fetched:", categories);
       setCategories(categories);
       setLoading(false);
     } catch (error) {

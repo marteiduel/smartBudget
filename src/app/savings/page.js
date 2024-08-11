@@ -12,24 +12,27 @@ export default function ReviewBudget() {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    async function getData() {
-      const res = await fetch("https://marteiduel.com/smartbudget/savings.php");
-      const data = await res.json();
-      setData(data);
-      
-      // Calculate total amount after data is fetched
-      let total = 0;
-      data.forEach(item => {
-        total += parseFloat(item.savings);
-      });
-      setTotalAmount(total);
+  const fetchData = async () => {
+    const res = await fetch("https://marteiduel.com/smartbudget/savings.php", {
+      method: 'GET',
+    });
+    const data = await res.json();
+    setData(data);
+    
+    // Calculate total amount after data is fetched
+    let total = 0;
+    data.forEach(item => {
+      total += parseFloat(item.savings);
+    });
+    setTotalAmount(total);
 
-      const categories = await getCategories();
-      setCategories(categories);
-      setLoading(false);
-    }
-    getData();
+    const categories = await getCategories();
+    setCategories(categories);
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    fetchData();
   }, []);
 
   return (
@@ -62,7 +65,7 @@ export default function ReviewBudget() {
               <Cell>
                 <Flex justifyContent="space-between">
                   <div>{item.savings}</div>
-                  {!loading && <Options category={item} categories={categories} />} 
+                  {!loading && <Options category={item} categories={categories} onActionComplete={fetchData} />} 
                 </Flex>
               </Cell>
             </Row>

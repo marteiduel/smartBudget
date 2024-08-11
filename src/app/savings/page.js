@@ -72,18 +72,21 @@ export default function ReviewBudget() {
           <Column showDivider>Saved</Column>
         </TableHeader>
         <TableBody items={data}>
-          {(item) => (
-            <Row key={item.categoryId}>
-              <Cell>{item.category_name}</Cell>
-              <Cell>
-                <Flex justifyContent="space-between">
-                  <div>{item.savings}</div>
-                  {loading ? <span>Loading...</span> : <Options category={item} categories={categories} onActionComplete={fetchData} />}
-                </Flex>
-              </Cell>
-            </Row>
-          )}
-        </TableBody>
+  {(item) => {
+    console.log("Rendering item:", item);
+    return (
+      <Row key={item.categoryId}>
+        <Cell>{item.category_name}</Cell>
+        <Cell>
+          <Flex justifyContent="space-between">
+            <div>{item.savings}</div>
+            {loading ? <span>Loading...</span> : <Options category={item} categories={categories} onActionComplete={fetchData} />}
+          </Flex>
+        </Cell>
+      </Row>
+    );
+  }}
+</TableBody>
       </TableView>
     </View>
   );

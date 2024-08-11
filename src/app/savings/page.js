@@ -70,10 +70,10 @@ export default function ReviewBudget() {
             <Row key={item.categoryId}>
               <Cell>{item.category_name}</Cell>
               <Cell>
-                <Flex justifyContent="space-between">
-                  <div>{item.savings}</div>
-                  {loading ? <span>Loading...</span> : <Options category={item} categories={categories} onActionComplete={fetchData} />}
-                </Flex>
+              <Flex justifyContent="space-between">
+  <div>{item.savings}</div>
+  {loading ? <span>Loading...</span> : <button>Test Button</button>}
+</Flex>
               </Cell>
             </Row>
           )}

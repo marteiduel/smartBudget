@@ -20,27 +20,27 @@ export default function ReviewBudget() {
 
   const fetchData = async () => {
     try {
-      console.log("Fetching data...");
-      const res = await fetch("https://marteiduel.com/smartbudget/savings.php", {
-        method: 'GET',
-      });
-      if (!res.ok) throw new Error('Network response was not ok');
-      const data = await res.json();
-      console.log("Data fetched:", data);
-      setData(data);
-  
+      const [savingsRes, categoriesRes] = await Promise.all([
+        fetch("https://marteiduel.com/smartbudget/savings.php", { method: 'GET' }),
+        getCategories()
+      ]);
+
+      if (!savingsRes.ok) throw new Error('Network response was not ok');
+
+      const savingsData = await savingsRes.json();
+      setData(savingsData);
+
       let total = 0;
-      data.forEach(item => {
+      savingsData.forEach(item => {
         total += parseFloat(item.savings);
       });
       setTotalAmount(total);
-  
-      const categories = await getCategories();
-      console.log("Categories fetched:", categories);
-      setCategories(categories);
-      setLoading(false);
+
+      setCategories(categoriesRes);
     } catch (error) {
       console.error('Failed to fetch data:', error);
+    } finally {
+      setLoading(false);
     }
   };
 

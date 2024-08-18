@@ -5,6 +5,7 @@ import AddCategoryPopUp from "./components/AddCategory";
 import EditCategoryPopUp from "./components/EditCategory";
 import { useState, useEffect } from "react";
 import { getTotalBudget } from "../lib/totalBudget";
+import { View, Cell, Column, Row, TableView, TableBody, TableHeader, Button } from '@adobe/react-spectrum';
 
 export default function Categories() {
   const [loading, isLoading] = useState(true);
@@ -19,26 +20,38 @@ export default function Categories() {
       setData(data);
       isLoading(false);
     });
-    async function getBudget(){
+    async function getBudget() {
       const res = await getTotalBudget();
-      const data = await res.total_budget
+      const data = await res.total_budget;
       setBudgetTotal(data);
     }
     getBudget();
   }, []);
 
-  const closePopout = (e) => {
-    e.preventDefault();
+  const closePopout = () => {
     setShowAddNewCategoryModal(false);
     setShowEditCategoryModal(false);
+  };
+
+  const handleRowAction = (key) => {
+    const selected = data.find((item) => item.categoryId === key);
+    console.log("Row action detected:", selected); // Debugging line
+    setSelectedCategory(selected);
+    setShowEditCategoryModal(true);
   };
 
   if (loading) return <div>Loading...</div>;
 
   return (
-    <div>
+    <View
+      backgroundColor="gray-50"
+      padding="size-100"
+      borderRadius="medium"
+      borderWidth="thin"
+      borderColor="blue-500"
+    >
       {showAddNewCategoryModal && <AddCategoryPopUp onClose={closePopout} />}
-      {showEditCategoryModal && (
+      {showEditCategoryModal && selectedCategory && (
         <EditCategoryPopUp data={selectedCategory} onClose={closePopout} />
       )}
       <header className="header">
@@ -46,43 +59,32 @@ export default function Categories() {
           Back
         </Link>
         <h1 className="pageTitle">Categories</h1>
-        <div className="reset" style={{display:"flex", flexDirection:"column", padding:"15px"}}>
+        <div className="reset" style={{ display: "flex", flexDirection: "column", padding: "15px" }}>
           <p className="text-center">Total</p>
           <p className="text-center">${budgetTotal}</p>
         </div>
       </header>
 
-      <div className="backBox">
-        {data.map((category) => {
-          return (
-            <div
-              key={category.categoryId}
-              className="categoryItem"
-              onClick={() => {
-                setShowEditCategoryModal(true);
-                setSelectedCategory(category);
-              }}
-            >
-              <div className="spaceBetween">
-                <p>{category.category_name}</p>
-                <div>
-                  <p>${category.category_budget}</p>
-                </div>
-              </div>
-            </div>
-          );
-        })}
-      </div>
-      <div className="justifyCenter">
-        <p
-          className="lowerButtons"
-          onClick={() => {
-            setShowAddNewCategoryModal(true);
-          }}
-        >
+      <TableView aria-label="Categories Table" selectionMode="single" onAction={handleRowAction}>
+        <TableHeader>
+          <Column key="name">Category Name</Column>
+          <Column key="budget">Budget</Column>
+        </TableHeader>
+        <TableBody items={data}>
+          {(item) => (
+            <Row key={item.categoryId}>
+              <Cell>{item.category_name}</Cell>
+              <Cell>${item.category_budget}</Cell>
+            </Row>
+          )}
+        </TableBody>
+      </TableView>
+
+      <View marginTop="size-200" alignSelf="center">
+        <Button variant="cta" onPress={() => setShowAddNewCategoryModal(true)}>
           Add Category
-        </p>
-      </div>
-    </div>
+        </Button>
+      </View>
+    </View>
   );
 }

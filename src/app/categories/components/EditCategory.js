@@ -24,7 +24,7 @@ function EditCategoryPopUp({ data, onClose }) {
       {/* Invisible button to satisfy DialogTrigger requirements */}
       <ActionButton isHidden>Open</ActionButton>
       <Dialog>
-        <Header>Edit Category: {data.category_name}</Header>
+        <Header><Button variant="secondary" onPress={onClose}>Cancel</Button></Header>
         <Divider />
         <Content>
           <Form onSubmit={editHandler}>
@@ -66,7 +66,7 @@ function EditCategoryPopUp({ data, onClose }) {
               </DialogTrigger>
               <Flex justifyContent="end" width="calc(100%)">
                 <Button variant="cta" type="submit">Edit Category</Button>
-                <Button variant="secondary" onPress={onClose}>Cancel</Button>
+                
               </Flex>
             </ButtonGroup>
           </Form>

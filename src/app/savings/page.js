@@ -79,7 +79,7 @@ export default function ReviewBudget() {
         <Cell>{item.category_name}</Cell>
         <Cell>
           <Flex justifyContent="space-between">
-            <div>{item.savings}</div>
+            <div style={{ color: item.savings.includes("-") ? "red" : "green"}}>{item.savings}</div>
             {loading ? <span>Loading...</span> : <Options category={item} categories={categories} onActionComplete={fetchData} />}
           </Flex>
         </Cell>

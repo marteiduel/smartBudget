@@ -1,13 +1,11 @@
 "use client";
 import Link from "next/link";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { todaysDate, handleAmountInput } from "../lib/transactionfunctions";
-import { Button, Picker, DatePicker, Form, TextArea, TextField, View } from "@adobe/react-spectrum";
+import { Button, Picker, DatePicker, Form, Item, TextArea, TextField, View } from "@adobe/react-spectrum";
 import { parseDate } from "@internationalized/date";
 
 export default function AddIncome() {
-  const [categories, setCategories] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState("");
   const [date, setDate] = useState(todaysDate());
   const [amount, setAmount] = useState("");
   const [description, setDescription] = useState("");
@@ -16,13 +14,13 @@ export default function AddIncome() {
     if (e && typeof e.preventDefault === 'function') {
       e.preventDefault();
     }
-    if (!amount || !date || !description) {
+    if ( !amount || !date || !description) {
       alert('Please fill out all fields.');
       return;
     }
     try {
       const response = await fetch(
-        "https://marteiduel.com/smartbudget/transaction.php",
+        "https://marteiduel.com/smartbudget/add-income.php",
         {
           method: "POST",
           headers: {
@@ -43,7 +41,7 @@ export default function AddIncome() {
         setDate(todaysDate());
       }
     } catch (error) {
-      console.error("Error adding expense:", error);
+      console.error("Error adding Income:", error);
     }
   }
 
@@ -70,7 +68,6 @@ export default function AddIncome() {
         <h1 className="pageTitle">Add Income</h1>
       </header>
       <Form validationBehavior="native" isRequired>
-
         <TextField 
           label="Amount"
           placeholder="Enter Amount"
